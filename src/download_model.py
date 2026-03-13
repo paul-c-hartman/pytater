@@ -19,7 +19,13 @@ def download_and_extract_model(model_url, extract_to):
     urllib.request.urlretrieve(model_url, tmp_file.name)
     print("Download complete. Extracting...")
     with zipfile.ZipFile(tmp_file.name, 'r') as zip_ref:
-        zip_ref.extractall(extract_to)
+      zip_ref.extractall(extract_to)
+    # zipfile extracts the model, but the model files are actually
+    # in a subfolder named after the model, so we move them up to the expected location and remove the now-empty subfolder.
+    extracted_model_folder = os.path.join(extract_to, os.listdir(extract_to)[0])
+    for item in os.listdir(extracted_model_folder):
+      shutil.move(os.path.join(extracted_model_folder, item), os.path.join(extract_to, item))
+    os.rmdir(extracted_model_folder)
     print(f"Model extracted to {extract_to}")
   os.remove(tmp_file.name)
 
@@ -32,7 +38,7 @@ def set_model(directory):
   if os.path.islink(expected_model_path) or os.path.exists(expected_model_path):
     os.remove(expected_model_path)
   os.makedirs(os.path.dirname(expected_model_path), exist_ok=True)
-  print(f"Symlinking from {directory} to {expected_model_path}...")
+  print(f"Symlinking from {directory} to {expected_model_path}")
   os.symlink(directory, expected_model_path)
 
 def main(model_name=DEFAULT_MODEL, force=False, confirmation=False):
