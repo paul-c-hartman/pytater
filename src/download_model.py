@@ -1,4 +1,5 @@
 import os
+import sys
 import shutil
 import tempfile
 import urllib.request
@@ -13,10 +14,23 @@ MODELS = {
 }
 DEFAULT_MODEL = "small"
 
+def download_progress(block_num, block_size, total_size):
+  if sys.stdin and sys.stdin.isatty():
+    read_so_far = block_num * block_size
+    if total_size > 0:
+      percent = read_so_far * 1e2 / total_size
+      # Use carriage return '\r' to overwrite the current line
+      sys.stderr.write(f"\rDownload Progress: {percent:5.1f}% {read_so_far:d} / {total_size:d} bytes")
+      if read_so_far >= total_size:
+        sys.stderr.write('\n') # Newline when download is complete
+    else:
+      sys.stderr.write(f"Read {read_so_far:d} bytes (Total size unknown)\n")
+    sys.stderr.flush()
+
 def download_and_extract_model(model_url, extract_to):
   with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
     print(f"Downloading model from {model_url}.\nThis may take a minute...")
-    urllib.request.urlretrieve(model_url, tmp_file.name)
+    urllib.request.urlretrieve(model_url, tmp_file.name, download_progress)
     print("Download complete. Extracting...")
     with zipfile.ZipFile(tmp_file.name, 'r') as zip_ref:
       zip_ref.extractall(extract_to)
@@ -35,8 +49,13 @@ def set_model(directory):
   # so we create a symlink from the expected location to the actual location of the model.
   xdg_config_home = os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
   expected_model_path = os.path.join(xdg_config_home, 'nerd-dictation', 'model')
+  # Remove symlink if it exists.
+  # This may be a folder
   if os.path.islink(expected_model_path) or os.path.exists(expected_model_path):
-    os.remove(expected_model_path)
+    if os.path.isdir(expected_model_path) and not os.path.islink(expected_model_path):
+      shutil.rmtree(expected_model_path)
+    else:
+      os.remove(expected_model_path)
   os.makedirs(os.path.dirname(expected_model_path), exist_ok=True)
   print(f"Symlinking from {directory} to {expected_model_path}")
   os.symlink(directory, expected_model_path)
