@@ -23,9 +23,20 @@ def download_and_extract_model(model_url, extract_to):
     print(f"Model extracted to {extract_to}")
   os.remove(tmp_file.name)
 
+def set_model(directory):
+  # We download models to $XDG_CONFIG_HOME/nerd-dictation/models/{model_name},
+  # but the tool tries to load a model from $XDG_CONFIG_HOME/nerd-dictation/model/,
+  # so we create a symlink from the expected location to the actual location of the model.
+  xdg_config_home = os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
+  expected_model_path = os.path.join(xdg_config_home, 'nerd-dictation', 'model')
+  if os.path.islink(expected_model_path) or os.path.exists(expected_model_path):
+    os.remove(expected_model_path)
+  print(f"Symlinking from {directory} to {expected_model_path}...")
+  os.symlink(directory, expected_model_path)
+
 def main(model_name=DEFAULT_MODEL, force=False, confirmation=False):
   xdg_config_home = os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
-  model_path = os.path.join(xdg_config_home, 'nerd-dictation', 'model')
+  model_path = os.path.join(xdg_config_home, 'nerd-dictation', 'models')
   model = MODELS.get(model_name)
   if model is not None:
     # Not a custom URL
@@ -43,6 +54,7 @@ def main(model_name=DEFAULT_MODEL, force=False, confirmation=False):
     print("Downloading model...")
     os.makedirs(model_path)
     download_and_extract_model(model, model_path)
+    set_model(model_path)
   elif force:
     if not confirmation:
       confirmation = input("CAUTION: If there is a model present, this will overwrite it. Are you sure? [yN] ")
@@ -53,5 +65,6 @@ def main(model_name=DEFAULT_MODEL, force=False, confirmation=False):
     shutil.rmtree(model_path) if os.path.exists(model_path) else None
     os.makedirs(model_path)
     download_and_extract_model(model, model_path)
+    set_model(model_path)
   else:
     print(f"Model already exists at {model_path}. No action taken.")
