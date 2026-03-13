@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = 'nerd-dictation'
 version = '1.0.0'
-requires-python = '>=3.10'
+requires-python = '>=3.6.2'
 description = 'Simple, hackable offline speech to text - using the VOSK-API.'
 readme = 'README.rst'
 keywords = ['voice', 'dictation', 'vosk', 'speech-to-text', 'speech', 'text']
