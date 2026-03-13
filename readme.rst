@@ -105,7 +105,7 @@ Install
 .. code-block:: sh
 
    pip3 install vosk
-   git clone https://github.com/ideasman42/nerd-dictation.git
+   git clone https://github.com/paul-c-hartman/nerd-dictation.git
    cd nerd-dictation
    wget https://alphacephei.com/kaldi/models/vosk-model-small-en-us-0.15.zip
    unzip vosk-model-small-en-us-0.15.zip
@@ -115,7 +115,8 @@ Or alternatively, using `uv <https://github.com/astral-sh/uv>`_:
 
 .. code-block:: sh
 
-   uv tool install --from git+https://github.com/ideasman42/nerd-dictation.git nerd-dictation
+   uv tool install --from git+https://github.com/paul-c-hartman/nerd-dictation.git nerd-dictation
+   # This will add a `nerd-dictation` command to your PATH
 
 To test dictation:
 
@@ -128,7 +129,7 @@ To test dictation:
 Alternatively, using uv:
 
 .. code-block:: sh
-   uvx nerd-dictation begin --vosk-model-dir=./model &
+   nerd-dictation begin --vosk-model-dir=./model &
    # Start speaking.
 
 
