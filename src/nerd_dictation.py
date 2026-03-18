@@ -16,6 +16,9 @@ import sys
 import tempfile
 import time
 
+# This package's modules.
+from .config import settings
+
 # Types.
 from typing import (
     Dict,
@@ -31,10 +34,6 @@ from types import (
 )
 
 TEMP_COOKIE_NAME = "nerd-dictation.cookie"
-
-USER_CONFIG_DIR = "nerd-dictation"
-
-USER_CONFIG = "nerd-dictation.py"
 
 SIMULATE_INPUT_CODE_COMMAND = -1
 
@@ -303,22 +302,6 @@ def simulate_typing_with_stdout(delete_prev_chars: int, text: str) -> None:
 #
 
 
-def calc_user_config_path(rest: Optional[str]) -> str:
-    """
-    Path to the user's configuration directory.
-    """
-    base = os.environ.get("XDG_CONFIG_HOME")
-    if base is None:
-        base = os.path.expanduser("~")
-        if os.name == "posix":
-            base = os.path.join(base, ".config")
-
-    base = os.path.join(base, USER_CONFIG_DIR)
-    if rest:
-        base = os.path.join(base, rest)
-    return base
-
-
 def user_config_as_module_or_none(
     config_override: Optional[str],
     user_config_prev: Optional[ModuleType],
@@ -327,7 +310,7 @@ def user_config_as_module_or_none(
     if config_override == "":
         return None
     if config_override is None:
-        user_config_path = calc_user_config_path(USER_CONFIG)
+        user_config_path = os.path.join(settings.dirs.user_config_path, "nerd-dictation.py")
         if not os.path.exists(user_config_path):
             return None
     else:
@@ -491,8 +474,7 @@ class from_words_to_digits:
         valid_unit_words = from_words_to_digits.valid_unit_words
         valid_zero_words = from_words_to_digits.valid_zero_words
 
-        if imply_single_unit:
-            only_scale = True
+        only_scale = imply_single_unit
 
         # Allow reformatting for a regular number.
         allow_reformat = True
@@ -1300,7 +1282,7 @@ def main_begin(
     # - `--vosk-model-dir=...`
     # - `~/.config/nerd-dictation/model`
     if not vosk_model_dir:
-        vosk_model_dir = calc_user_config_path("model")
+        vosk_model_dir = os.path.join(settings.dirs.user_data_path, "model")
         # If this still doesn't exist the error is handled later.
 
     #
