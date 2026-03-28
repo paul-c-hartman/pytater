@@ -2,6 +2,32 @@ import argparse
 from nerd_dictation.cli._common import argparse_cookie
 from nerd_dictation import main_begin
 
+def callback(args: argparse.Namespace) -> None:
+    main_begin(
+        path_to_cookie=args.path_to_cookie,
+        vosk_model_dir=args.vosk_model_dir,
+        pulse_device_name=args.pulse_device_name,
+        sample_rate=args.sample_rate,
+        input_method=args.input_method,
+        progressive=not (args.defer_output or args.output == "STDOUT"),
+        progressive_continuous=args.progressive_continuous,
+        full_sentence=args.full_sentence,
+        numbers_as_digits=args.numbers_as_digits,
+        numbers_use_separator=args.numbers_use_separator,
+        numbers_min_value=args.numbers_min_value,
+        numbers_no_suffix=args.numbers_no_suffix,
+        timeout=args.timeout,
+        idle_time=min(args.idle_time, 0.5),
+        delay_exit=args.delay_exit,
+        punctuate_from_previous_timeout=args.punctuate_from_previous_timeout,
+        config_override=args.config,
+        output=args.output,
+        simulate_input_tool=args.simulate_input_tool,
+        suspend_on_start=args.suspend_on_start,
+        verbose=args.verbose,
+        vosk_grammar_file=args.vosk_grammar_file,
+    )
+
 def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
     subparse = subparsers.add_parser(
         "begin",
@@ -262,6 +288,7 @@ def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> N
         ),
         required=False,
     )
+
     subparse.add_argument(
         "--simulate-input-tool",
         dest="simulate_input_tool",
@@ -307,29 +334,4 @@ def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> N
         ),
     )
 
-    subparse.set_defaults(
-        func=lambda args: main_begin(
-            path_to_cookie=args.path_to_cookie,
-            vosk_model_dir=args.vosk_model_dir,
-            pulse_device_name=args.pulse_device_name,
-            sample_rate=args.sample_rate,
-            input_method=args.input_method,
-            progressive=not (args.defer_output or args.output == "STDOUT"),
-            progressive_continuous=args.progressive_continuous,
-            full_sentence=args.full_sentence,
-            numbers_as_digits=args.numbers_as_digits,
-            numbers_use_separator=args.numbers_use_separator,
-            numbers_min_value=args.numbers_min_value,
-            numbers_no_suffix=args.numbers_no_suffix,
-            timeout=args.timeout,
-            idle_time=min(args.idle_time, 0.5),
-            delay_exit=args.delay_exit,
-            punctuate_from_previous_timeout=args.punctuate_from_previous_timeout,
-            config_override=args.config,
-            output=args.output,
-            simulate_input_tool=args.simulate_input_tool,
-            suspend_on_start=args.suspend_on_start,
-            verbose=args.verbose,
-            vosk_grammar_file=args.vosk_grammar_file,
-        ),
-    )
+    subparse.set_defaults(func=callback)

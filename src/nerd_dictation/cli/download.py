@@ -2,6 +2,9 @@ import argparse
 from nerd_dictation.cli._common import argparse_cookie
 from nerd_dictation.download_model import main as download_model, MODELS, DEFAULT_MODEL
 
+def callback(args: argparse.Namespace) -> None:
+    download_model(args.model, args.force, args.confirmation)
+
 def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
     subparse = subparsers.add_parser(
         "download",
@@ -59,6 +62,4 @@ def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> N
 
     argparse_cookie(subparse)
 
-    subparse.set_defaults(
-        func=lambda args: download_model(args.model, args.force, args.confirmation),
-    )
+    subparse.set_defaults(func=callback)

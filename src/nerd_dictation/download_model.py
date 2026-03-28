@@ -16,7 +16,7 @@ MODELS = {
 DEFAULT_MODEL = "small"
 
 def download_progress(block_num, block_size, total_size):
-  if sys.stdin and sys.stdin.isatty():
+  if sys.stderr and sys.stderr.isatty():
     read_so_far = block_num * block_size
     if total_size > 0:
       percent = read_so_far * 1e2 / total_size

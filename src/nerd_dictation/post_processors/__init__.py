@@ -1,14 +1,16 @@
-from types import ModuleType
 import sys
-from typing import Any
+from typing import Any, Callable
 
 post_processors = []
 
-def register_post_processor(name: str, post_process_fn) -> None:
-    post_processors.append((name, post_process_fn))
-
-def load_post_processor(module_name: str) -> None:
-    __import__(module_name)
+def register_post_processor(name: str, priority: int, post_process_fn: Callable[[list[str], dict[str, Any]], list[str]]) -> None:
+    """
+    Register a post processor function that will be called to process the text after it is recognized.
+     - name: The name of the post processor, used for configuration and debugging.
+     - priority: The priority of the post processor, lower numbers will be run first.
+     - post_process_fn: The function that will be called to process the text.
+    """
+    post_processors.append((name, priority, post_process_fn))
 
 def process_text(
     text: str,
@@ -29,22 +31,26 @@ def process_text(
     words = text.split(" ")
 
     # Handle post processors that are registered by user configuration.
-    for name, post_process_fn in post_processors:
+    for name, _priority, post_process_fn in sorted(post_processors, key=lambda x: x[1]):
         try:
-            if options.get(name, {}).get("enabled", False):
-                words = post_process_fn(words, options.get(name, {}))
+            processor_options = options.get(name, {})
+            if processor_options.get("enabled", False):
+                print("Running post processor %r with options %r" % (name, processor_options))
+                words = post_process_fn(words, processor_options)
+            else:
+                print("Skipping post processor %r as it is not enabled" % name)
         except Exception as ex:
             sys.stderr.write("Failed to run post processor %r with error %s\n" % (name, str(ex)))
             sys.exit(1)
 
     # Optional?
-    if options.get("full_sentence", {}).get("enabled"):
-        words[0] = words[0].capitalize()
-        words[-1] = words[-1]
+    # if options.get("full_sentence", {}).get("enabled"):
+    #     words[0] = words[0].capitalize()
+    #     # words[-1] = words[-1]
 
     return " ".join(words)
 
 
 # Built-in post processors that are always available
-load_post_processor("nerd_dictation.post_processors.full_sentence")
-load_post_processor("nerd_dictation.post_processors.numbers")
+import nerd_dictation.post_processors.full_sentence
+import nerd_dictation.post_processors.numbers

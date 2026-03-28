@@ -1,7 +1,6 @@
 import subprocess
 import os
 from typing import Optional
-from nerd_dictation.utilities import run_command_or_exit_on_failure
 from nerd_dictation.config import settings
 
 # NOTE: typed as a string for Py3.6 compatibility.

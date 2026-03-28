@@ -2,6 +2,11 @@ import argparse
 from nerd_dictation.cli._common import argparse_cookie
 from nerd_dictation.main import main_cancel
 
+def callback(args: argparse.Namespace) -> None:
+    main_cancel(
+        path_to_cookie=args.path_to_cookie,
+    )
+
 def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
     subparse = subparsers.add_parser(
         "cancel",
@@ -12,8 +17,4 @@ def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> N
 
     argparse_cookie(subparse)
 
-    subparse.set_defaults(
-        func=lambda args: main_cancel(
-            path_to_cookie=args.path_to_cookie,
-        ),
-    )
+    subparse.set_defaults(func=callback)

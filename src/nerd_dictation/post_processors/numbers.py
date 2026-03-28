@@ -449,4 +449,5 @@ def replace_numbers(words: list[str], options: dict[str, Any] = {}) -> list[str]
     )
     return words
 
-register_post_processor("numbers", replace_numbers)
+# Priority 10 as a sensible default
+register_post_processor("numbers", 10, replace_numbers)

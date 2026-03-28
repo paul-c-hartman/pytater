@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-"""
-This is a utility that activates speech to text on Linux.
-While it could use any system currently it uses the VOSK-API.
-"""
-
 # All built in modules.
 import os
 import sys
