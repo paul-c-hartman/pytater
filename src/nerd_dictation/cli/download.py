@@ -2,8 +2,10 @@ import argparse
 from nerd_dictation.cli._common import argparse_cookie
 from nerd_dictation.download_model import main as download_model, MODELS, DEFAULT_MODEL
 
+
 def callback(args: argparse.Namespace) -> None:
     download_model(args.model, args.force, args.confirmation)
+
 
 def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
     subparse = subparsers.add_parser(
@@ -30,7 +32,7 @@ def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> N
             f"The name of the model to download. Defaults to '{DEFAULT_MODEL}'.\n"
             + "These can be found at: https://alphacephei.com/vosk/models.\n"
             + "To use a different model, use the URL to the model file as the argument, for example:\n"
-            + " --model=\"https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip\"\n"
+            + ' --model="https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip"\n'
         ),
         required=False,
     )
@@ -54,8 +56,7 @@ def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> N
         default=False,
         action="store_true",
         help=(
-            "Confirm overwriting an existing model.\n"
-            "Use this flag to pass the interactive check if using --force."
+            "Confirm overwriting an existing model.\n" "Use this flag to pass the interactive check if using --force."
         ),
         required=False,
     )

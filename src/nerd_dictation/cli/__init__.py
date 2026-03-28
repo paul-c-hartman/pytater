@@ -7,7 +7,6 @@ from nerd_dictation.cli.suspend import main as argparse_create_suspend
 from nerd_dictation.cli.resume import main as argparse_create_resume
 from nerd_dictation.cli.download import main as argparse_create_download
 
-
 description = """
 This is a utility that activates speech to text on Linux.
 While it could use any system currently it uses the VOSK-API.

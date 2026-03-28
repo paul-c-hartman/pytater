@@ -1,5 +1,6 @@
 import argparse
 
+
 def argparse_cookie(subparse: argparse.ArgumentParser) -> None:
     subparse.add_argument(
         "--cookie",
