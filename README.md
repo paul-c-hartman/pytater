@@ -2,7 +2,8 @@
 
 *Offline Speech to Text for Linux.*
 
-> [!IMPORTANT] This project is a fork of [ideasman42's Nerd Dictation](https://github.com/ideasman42/nerd-dictation)--where the original is a script meant for easy hacking, this is a full-fledged Python package, meant to provide vastly simpler setup and a Python API on top of the original CLI.
+> [!IMPORTANT]
+> This project is a fork of [ideasman42's Nerd Dictation](https://github.com/ideasman42/nerd-dictation)--where the original is a script meant for easy hacking, this is a full-fledged Python package, meant to provide vastly simpler setup and a Python API on top of the original CLI.
 
 See [demo video](https://www.youtube.com/watch?v=T7sR-4DFhpQ) (from ideasman42).
 
