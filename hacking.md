@@ -1,7 +1,6 @@
-# 
-Hacking
+# Hacking
 
-While contributions to this repository a welcome,
+While contributions to this repository are welcome,
 features which may be personal for your own usage should be implemented in your own user configuration.
 
 *If unsure, open an issue with the suggestion.*

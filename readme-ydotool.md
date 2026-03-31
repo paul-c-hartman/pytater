@@ -1,10 +1,10 @@
 # Using `ydotool` with nerd-dictation
 
-This guide explains how to get and configure `ydotool` to simulate typing with `nerd-dictation`, which brings support for typing on Wayland and languages other than English.
+This guide explains how to get and configure `ydotool` to simulate typing with `pytater`, which brings support for typing on Wayland and languages other than English.
 
 ## When should I use `ydotool`?
 
-By default, `nerd-dictation` uses the `xdotool` program to simulate writing with the keyboard.
+By default, `pytater` uses the `xdotool` program to simulate writing with the keyboard.
 
 This program has two major limitations:
 
@@ -27,7 +27,7 @@ There, you can download compiled executables. You should then place them in a pl
 
 ## Configuring `ydotool`
 
-To simulate typing, the program needs access to your `/dev/uinput` device. By default, this requires root privileges every time you run `ydotool`, so you'd have to enter your password every time you run `nerd-dictation`.
+To simulate typing, the program needs access to your `/dev/uinput` device. By default, this requires root privileges every time you run `ydotool`, so you'd have to enter your password every time you run `pytater`.
 
 To avoid that, you can give the program permanent access to the input device by adding your username to the `input` user group on your system and giving the group write access to the `uinput` device.
 
@@ -56,8 +56,8 @@ To avoid running it every time you start the computer, you can add it to your st
 
 ## Running nerd dictation with `ydotool`
 
-To run `nerd-dictation` with `ydotool`, use the `--simulate-input-tool` argument.
+To run `pytater` with `ydotool`, use the `--simulate-input-tool` argument.
 
 ```sh
-nerd-dictation begin --simulate-input-tool=YDOTOOL
+pytater begin --simulate-input-tool=YDOTOOL
 ```

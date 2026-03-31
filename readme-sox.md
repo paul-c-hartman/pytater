@@ -1,6 +1,6 @@
 # Using `sox` with nerd-dictation
 
-This guide explains how to configure `sox` for recording audio with `nerd-dictation`.
+This guide explains how to configure `sox` for recording audio with `pytater`.
 
 ## When should I use `sox`?
 
@@ -24,8 +24,8 @@ sox test.wav -d
 
 ## Running nerd dictation with `sox`
 
-To run `nerd-dictation` with `sox`, use the `--input` argument.
+To run `pytater` with `sox`, use the `--input` argument.
 
 ```sh
-nerd-dictation begin --input=SOX
+pytater begin --input=SOX
 ```
