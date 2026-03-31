@@ -11,11 +11,9 @@ This is a utility that provides simple access speech to text for using in Linux
 without being tied to a desktop environment, using the excellent [VOSK-API](https://github.com/alphacep/vosk-api).
 
 _**Simple to set up**_  
-   &nbsp;&nbsp;&nbsp;Pytater can be installed ~~from PyPi~~ (coming soon) with a single command.  
+   &nbsp;&nbsp;&nbsp;Pytater can be installed with a single command ~~from PyPi~~ (coming soon).  
 _**Configurable**_  
-   &nbsp;&nbsp;&nbsp;Configure pytater using config files, environment variables, or the Python API.  
-_**Extensible**_  
-  &nbsp;&nbsp;&nbsp;Use the Python API to extend pytater or customize its operation.  
+   &nbsp;&nbsp;&nbsp;Configure pytater using config files, environment variables, or the Python API (partially complete).  
 _**Zero Overhead**_  
    &nbsp;&nbsp;&nbsp;As pytater is activated manually, there are no background processes.
 
@@ -57,16 +55,15 @@ Output can simulate keystroke events (default) or simply print to the standard o
 TODO: fill in this section
 
 ## Suspend/Resume
-Initial load time can be an issue for users on slower systems or with some of the larger language-models, in this case suspend/resume can be useful. While suspended all data is kept in memory and the process is stopped. Audio recording is stopped and restarted on resume.
+Initial load time can be an issue for users on slower systems or with some of the larger language-models. In this case, suspend/resume can be useful. While suspended, all data is kept in memory and the process is stopped. Audio recording is stopped and restarted on resume.
 
 See `pytater begin --help` for details on how to access these options.
 
 ## Dependencies
 
 - Python 3.6.2 (or newer).
-- The VOSK-API.
 - An audio recording utility (`parec` by default).
-- An input simulation utility (`xdotool` by default).
+- An input simulation utility (`xdotool` by default). (This is not necessary if all you're doing is printing dictated words to the terminal.)
 
 ### Audio Recording Utilities
 
@@ -144,10 +141,8 @@ These are example configurations you may use as a reference.
 
 ## Limitations
 
-- Text from VOSK is all lower-case. While the user configuration can be used to set the case of common words like `I`, this isn't very convenient (see the example configuration for details).
-- For some users the delay in start up may be noticeable on systems with slower hard disks especially when running for the 1st time (a cold start).
-
-  This is a limitation with the choice not to use a service that runs in the background. Recording begins before any the speech-to-text components are loaded to mitigate this problem.
+- Text from VOSK is all lower-case. While the user configuration can be used to set the case of common words like `I`, this isn't very convenient.
+- For some users the delay in start up may be noticeable on systems with slower hard disks especially when running for the 1st time (a cold start). This is a limitation with the choice not to use a service that runs in the background. Recording begins before any the speech-to-text components are loaded to mitigate this problem.
 
 ## Roadmap
 
@@ -155,5 +150,6 @@ These are example configurations you may use as a reference.
 - Proper extension support using [entry points](https://setuptools.pypa.io/en/latest/userguide/entry_point.html)
 - Reimplement certain features as post-processors
   - General solution to capitalize words (proper nouns for example)
+- Proper logging system
 - Processing of audio files in addition to live audio
 - Support Windows & macOS
