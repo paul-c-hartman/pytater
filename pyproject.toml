@@ -11,7 +11,6 @@ readme = 'README.md'
 keywords = ['voice', 'dictation', 'vosk', 'speech-to-text', 'speech', 'text']
 license = "GPL-2.0-or-later"
 classifiers = [
-    "Intended Audience :: End Users/Desktop",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 3",
     "Topic :: Adaptive Technologies",
@@ -21,6 +20,9 @@ classifiers = [
 license-files = ["LICENSE"]
 authors = [
     { name = "Campbell Barton", email = "ideasman42@gmail.com" },
+    { name = "Paul Hartman", email = "contact@paulhartman.dev" },
+]
+maintainers = [
     { name = "Paul Hartman", email = "contact@paulhartman.dev" },
 ]
 dependencies = ["platformdirs>=2.4.0", "vosk>=0.3.45"]

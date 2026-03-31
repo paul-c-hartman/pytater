@@ -11,7 +11,7 @@ This is a utility that provides simple access speech to text for using in Linux
 without being tied to a desktop environment, using the excellent [VOSK-API](https://github.com/alphacep/vosk-api).
 
 _**Simple to set up**_  
-   &nbsp;&nbsp;&nbsp;Pytater can be installed with a single command ~~from PyPi~~ (coming soon).  
+   &nbsp;&nbsp;&nbsp;Pytater can be installed with a single command from PyPi.  
 _**Configurable**_  
    &nbsp;&nbsp;&nbsp;Configure pytater using config files, environment variables, or the Python API (partially complete).  
 _**Zero Overhead**_  
@@ -88,15 +88,15 @@ You may select one of the following input simulation utilities.
 With pip (not recommended, as this will install it globally):
 
 ```sh
-pip3 https://github.com/paul-c-hartman/pytater.git
+pip3 install pytater
 ```
 
 Or alternatively, using [uv](https://github.com/astral-sh/uv) or [pipx](https://pipx.pypa.io/stable/):
 
 ```sh
-uv tool install --from git+https://github.com/paul-c-hartman/pytater.git pytater
+uv tool install pytater
 # or:
-pipx install git+https://github.com/paul-c-hartman/pytater.git
+pipx install pytater
 # This will add a `pytater` command to your PATH
 ```
 
