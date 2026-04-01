@@ -5,6 +5,9 @@ from pytater.post_processors import register_post_processor
 def from_words_to_digits_setup_once() -> (
     Tuple[Dict[str, Tuple[int, int, str, bool]], Set[str], Set[str], Set[str], Set[str]]
 ):
+    """
+    One-time setup for the numbers post-processor. This initializes the mapping of number words to their numeric values and other related sets for validation.
+    """
     number_words = {}
     # A set of words that can be used to start numeric expressions.
     valid_digit_words: Set[str] = set()
@@ -117,6 +120,11 @@ def from_words_to_digits_setup_once() -> (
 # Originally based on: https://ao.gl/how-to-convert-numeric-words-into-numbers-using-python/
 # A module like class can't be instanced.
 class from_words_to_digits:
+    """
+    A class for converting numbers expressed in English words into digits. For example, "two hundred and fifty six" -> "256".
+
+    Originally based on: https://ao.gl/how-to-convert-numeric-words-into-numbers-using-python/
+    """
     (
         _number_words,
         valid_digit_words,
@@ -133,6 +141,15 @@ class from_words_to_digits:
         imply_single_unit: bool = False,
         force_single_units: bool = False,
     ) -> Tuple[str, str, int, bool]:
+        """
+        Parses a number from a list of words starting at the given index.
+
+        Returns a tuple containing:
+        - The parsed number as a string.
+        - A suffix if applicable (e.g. "th" for "fifth").
+        - The index of the next word after the parsed number.
+        - A boolean indicating whether the parsed number can be reformatted with a separator (e.g. "1,000" instead of "1000").
+        """
         number_words = from_words_to_digits._number_words
         valid_scale_words = from_words_to_digits.valid_scale_words
         valid_unit_words = from_words_to_digits.valid_unit_words
@@ -230,6 +247,9 @@ class from_words_to_digits:
 
     @staticmethod
     def _allow_follow_on_word(w_prev: str, w: str) -> bool:
+        """
+        Returns True if the current word can follow the previous word without delimiting. For example, "thirteen and fifty five" should be parsed as "13 and 55" without delimiting "fifty".
+        """
         valid_unit_words = from_words_to_digits.valid_unit_words
         number_words = from_words_to_digits._number_words
 
@@ -249,6 +269,9 @@ class from_words_to_digits:
         word_index: int,
         word_index_len: int,
     ) -> int:
+        """
+        Delimit numbers in a series. For example, "twenty twenty and twenty twenty one" should be parsed as "2020 and 2021" with the first "twenty" delimiting the first number and the second "twenty" delimiting the second number.
+        """
         valid_unit_words = from_words_to_digits.valid_unit_words
         number_words = from_words_to_digits._number_words
 
@@ -308,6 +331,9 @@ class from_words_to_digits:
         word_index: int,
         word_index_len: int,
     ) -> int:
+        """
+        Delimit numbers in a sliding manner. For example, "one hundred two hundred" should be parsed as "100 200" with the first "one" delimiting the first number and the second "two" delimiting the second number.
+        """
         valid_unit_words = from_words_to_digits.valid_unit_words
         number_words = from_words_to_digits._number_words
         i = word_index
@@ -349,6 +375,14 @@ class from_words_to_digits:
         word_index: int,
         imply_single_unit: bool = False,
     ) -> Tuple[str, str, int, bool]:
+        """
+        Parses a number from a list of words starting at the given index.
+        Returns a tuple containing:
+        - The parsed number as a string.
+        - A suffix if applicable (e.g. "th" for "fifth").
+        - The index of the next word after the parsed number.
+        - A boolean indicating whether the parsed number can be reformatted with a separator (e.g. "1,000" instead of "1000").
+        """
         word_list_len = len(word_list)
 
         # Delimit, prevent accumulating "one hundred two hundred" -> "300" for example.
@@ -377,6 +411,9 @@ class from_words_to_digits:
         numbers_min_value: Optional[int] = None,
         numbers_no_suffix: bool = False,
     ) -> None:
+        """
+        Parses numbers from a list of words in place, modifying the list directly. For example, `["twenty", "five"]` -> `["25"]`.
+        """
         i = 0
         i_number_prev = -1
         orig_word_list = word_list.copy()
@@ -445,6 +482,9 @@ class from_words_to_digits:
 
 
 def replace_numbers(words: list[str], options: Optional[dict[str, Any]] = None) -> list[str]:
+    """
+    Post-processor that replaces numbers expressed in English words with their digit representations. For example, `["twenty", "five"]` -> `["25"]`.
+    """
     if options is None:
         options = {}
     from_words_to_digits.parse_numbers_in_word_list(

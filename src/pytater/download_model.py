@@ -16,8 +16,11 @@ MODELS = {
 DEFAULT_MODEL = "small"
 
 
-def download_progress(block_num, block_size, total_size):
-    if sys.stderr and sys.stderr.isatty():
+def download_progress(block_num: int, block_size: int, total_size: int) -> None:
+    """
+    Reports download progress to stderr. Only runs if pytater is running interactively.
+    """
+    if hasattr(sys, 'ps1'):
         read_so_far = block_num * block_size
         if total_size > 0:
             percent = read_so_far * 1e2 / total_size
@@ -30,7 +33,11 @@ def download_progress(block_num, block_size, total_size):
         sys.stderr.flush()
 
 
-def download_and_extract_model(model_url, extract_to):
+def download_and_extract_model(model_url: str, extract_to: str) -> None:
+    """
+    Downloads a model from the given URL and extracts it to the specified directory.
+    Assumes the URL points to a zip file.
+    """
     with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
         print(f"Downloading model from {model_url}.\nThis may take a minute...")
         urllib.request.urlretrieve(model_url, tmp_file.name, download_progress)
@@ -47,7 +54,10 @@ def download_and_extract_model(model_url, extract_to):
     os.remove(tmp_file.name)
 
 
-def set_model(directory):
+def set_model(directory: str) -> None:
+    """
+    Sets the model directory by creating a symlink from the path pytater checks to the actual location of the model.
+    """
     # We download models to $XDG_DATA_HOME/pytater/models/{model_name},
     # but the tool tries to load a model from $XDG_DATA_HOME/pytater/model/,
     # so we create a symlink from the expected location to the actual location of the model.
@@ -64,9 +74,14 @@ def set_model(directory):
     os.symlink(directory, expected_model_path)  # os.symlink takes the destination first for some reason
 
 
-def main(model_name=DEFAULT_MODEL, force=False, confirmation=False):
+def main(model_name: str = DEFAULT_MODEL, force: bool = False, confirmation: bool = False) -> None:
+    """
+    Downloads a model by name or from a custom URL.
+    If the model already exists, it will not be downloaded again unless `force` is True.
+    If `force` is True and `confirmation` is False, the user will be prompted to confirm before overwriting an existing model.
+    """
     model_path = os.path.join(settings.dirs.user_data_path, "models")
-    model = MODELS.get(model_name)
+    model = MODELS.get(model_name, model_name)
     if model is not None:
         # Not a custom URL
         model = f"{MODEL_URL}{model}.zip"
@@ -84,8 +99,8 @@ def main(model_name=DEFAULT_MODEL, force=False, confirmation=False):
         download_and_extract_model(model, model_path)
     elif force:
         if not confirmation:
-            confirmation = input("CAUTION: If there is a model present, this will overwrite it. Are you sure? [yN] ")
-            if confirmation.lower() != "y":
+            confirm = input("CAUTION: If there is a model present, this will overwrite it. Are you sure? [yN] ")
+            if confirm.lower() != "y":
                 print("Aborting model download.")
                 return
         print("Forcing download of model")

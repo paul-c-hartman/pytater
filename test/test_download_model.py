@@ -1,6 +1,9 @@
 import io
 from contextlib import redirect_stderr
-from pytater.download_model import *
+import os
+import tempfile
+from pytater.download_model import download_progress, download_and_extract_model, set_model
+from pytater.config import settings
 
 
 def test_download_progress_noninteractive():

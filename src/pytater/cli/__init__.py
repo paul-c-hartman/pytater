@@ -14,6 +14,9 @@ While it could use any system currently it uses the VOSK-API.
 
 
 def argparse_create() -> argparse.ArgumentParser:
+    """
+    Creates the main argument parser for the `pytater` CLI, including subparsers for each command.
+    """
     parser = argparse.ArgumentParser(description=description, formatter_class=argparse.RawTextHelpFormatter)
 
     subparsers = parser.add_subparsers()
@@ -32,6 +35,9 @@ def argparse_create() -> argparse.ArgumentParser:
 
 
 def main(argv: Optional[List[str]] = None) -> None:
+    """
+    Main entry point for the `pytater` CLI. Parses command-line arguments and dispatches to the appropriate sub-command callback.
+    """
     parser = argparse_create()
     args = parser.parse_args(argv)
     # Call sub-parser callback.

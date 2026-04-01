@@ -4,6 +4,9 @@ from pytater.main import main_suspend
 
 
 def callback(args: argparse.Namespace) -> None:
+    """
+    Callback function for `pytater resume`. Calls the `main_suspend` function with the appropriate arguments.
+    """
     main_suspend(
         path_to_cookie=args.path_to_cookie,
         suspend=False,
@@ -23,7 +26,9 @@ def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> N
         ),
         formatter_class=argparse.RawTextHelpFormatter,
     )
-
+    """
+    Sets up arguments for `pytater resume` and registers the corresponding callback.
+    """
     argparse_cookie(subparse)
 
     subparse.set_defaults(func=callback)

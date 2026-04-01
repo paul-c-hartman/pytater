@@ -4,10 +4,16 @@ from pytater.download_model import main as download_model, MODELS, DEFAULT_MODEL
 
 
 def callback(args: argparse.Namespace) -> None:
+    """
+    Callback function for `pytater download`. Calls the `download_model` function with the appropriate arguments.
+    """
     download_model(args.model, args.force, args.confirmation)
 
 
 def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    """
+    Sets up arguments for `pytater download` and registers the corresponding callback.
+    """
     subparse = subparsers.add_parser(
         "download",
         help="Download the VOSK model.",

@@ -3,6 +3,9 @@ from pytater.post_processors import register_post_processor
 
 
 def full_sentence(words: list[str], options: Optional[dict[str, Any]] = None) -> list[str]:
+    """
+    Post-processor that capitalizes the first word of a sentence and leaves the rest of the words unchanged. For example, `["hello", "world"]` -> `["Hello", "world"]`.
+    """
     if options is None:
         options = {}
     words[0] = words[0].capitalize()

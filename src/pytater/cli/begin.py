@@ -4,6 +4,9 @@ from pytater import main_begin
 
 
 def callback(args: argparse.Namespace) -> None:
+    """
+    Callback function for `pytater begin`. Calls the `main_begin` function with the appropriate arguments.
+    """
     main_begin(
         path_to_cookie=args.path_to_cookie,
         vosk_model_dir=args.vosk_model_dir,
@@ -30,6 +33,9 @@ def callback(args: argparse.Namespace) -> None:
 
 
 def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    """
+    Sets up arguments for `pytater begin` and registers the corresponding callback.
+    """
     subparse = subparsers.add_parser(
         "begin",
         help="Begin dictation.",

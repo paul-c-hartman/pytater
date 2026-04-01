@@ -1,5 +1,6 @@
 import pytest
-from pytater.utilities import *
+from pytater.utilities import run_command_or_exit_on_failure, touch, file_mtime_or_none, file_age_in_seconds, file_remove_if_exists, file_handle_make_non_blocking, execfile
+import os
 
 
 def test_run_command_or_exit_on_failure():

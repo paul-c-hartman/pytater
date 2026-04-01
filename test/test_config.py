@@ -1,4 +1,4 @@
-from pytater.config import *
+from pytater.config import settings
 from platformdirs import PlatformDirs
 
 
@@ -11,5 +11,5 @@ def test_config():
     assert settings.dirs.appname == "pytater"
     assert settings.dirs.appauthor == "paul-c-hartman"
     assert isinstance(settings.dirs, PlatformDirs)
-    assert settings.temp_cookie_name == "nerd_dictation.cookie"
+    assert settings.temp_cookie_name == "pytater.cookie"
     assert settings.simulate_input_code_command == -1
