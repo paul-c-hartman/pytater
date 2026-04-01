@@ -1,0 +1,1534 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Vosk - Pytater</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pytater.vosk" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Pytater" class="md-header__button md-logo" aria-label="Pytater" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pytater
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Vosk
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Welcome to MkDocs
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tutorials/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tutorials
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../how-to-guides/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  How-to guides
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../explanation/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Explanation
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Pytater" class="md-nav__button md-logo" aria-label="Pytater" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Pytater
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome to MkDocs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How-to guides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explanation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Vosk</h1>
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="pytater.vosk"></a>
+    <div class="doc doc-contents first">
+
+        <p>This module facilitates speech recognition using the VOSK library.</p>
+<p>It hooks into the VOSK speech recognition library to provide real-time transcription of audio input.</p>
+<p>Typical usage example:</p>
+<pre><code>from pytater.vosk import text_from_vosk_pipe
+text_from_vosk_pipe(
+    vosk_model_dir="path/to/model",
+    exit_fn=your_exit_fn,
+    process_fn=your_process_fn,
+    handle_fn=your_handle_fn,
+    timeout=5.0,
+    idle_time=0.1,
+    progressive=True,
+    progressive_continuous=False,
+    sample_rate=44100,
+    input_method="PAREC",
+    pulse_device_name="",
+    suspend_on_start=False,
+    verbose=0,
+    vosk_grammar_file="",
+)
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="pytater.vosk.text_from_vosk_pipe" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">text_from_vosk_pipe</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">vosk_model_dir</span><span class="p">,</span> <span class="n">exit_fn</span><span class="p">,</span> <span class="n">process_fn</span><span class="p">,</span> <span class="n">handle_fn</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">idle_time</span><span class="p">,</span> <span class="n">progressive</span><span class="p">,</span> <span class="n">progressive_continuous</span><span class="p">,</span> <span class="n">sample_rate</span><span class="p">,</span> <span class="n">input_method</span><span class="p">,</span> <span class="n">pulse_device_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">suspend_on_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vosk_grammar_file</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Runs the VOSK speech recognition process and handles the output according to the provided functions and parameters.</p>
+<p>This function is the core of the speech recognition process, handling the recording of audio, processing it with VOSK, and managing the output based on the provided callbacks and settings.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>vosk_model_dir</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The directory where the VOSK model is located.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>exit_fn</code>
+            </td>
+            <td>
+                  <code><span title="typing.Callable">Callable</span>[..., <span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A callback function that determines when to exit the recording loop. It should return -1 to cancel, 0 to continue, and 1 to finish.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>process_fn</code>
+            </td>
+            <td>
+                  <code><span title="typing.Callable">Callable</span>[[<span title="str">str</span>], <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A callback function that processes the transcribed text before it is handled. It takes a string input and returns a string output.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>handle_fn</code>
+            </td>
+            <td>
+                  <code><span title="typing.Callable">Callable</span>[[<span title="int">int</span>, <span title="str">str</span>], None]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A callback function that handles the processed text. It takes an integer representing the number of characters to delete from the previous output and a string representing the new text to output.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>timeout</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The time in seconds to wait for changes in the transcription before automatically exiting. A value of 0 means no timeout.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>idle_time</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The time in seconds to sleep between iterations of the recording loop to prevent excessive CPU usage. A value of 0 means no sleeping.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>progressive</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, the handle_fn will be called with partial results as they are transcribed. If False, handle_fn will only be called with the final transcribed text.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>progressive_continuous</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True and progressive is True, the handle_fn will be called with the continuously updated transcription. If False and progressive is True, the handle_fn will be called with the final transcription of each segment.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sample_rate</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The sample rate for audio recording.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>input_method</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The method to use for audio input. Supported values are "PAREC", "SOX", and "PW-CAT".</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>pulse_device_name</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the PulseAudio device to use for recording (only applicable if input_method is "PAREC").</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>suspend_on_start</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, the recording process will start in a suspended state and will need to be resumed with a signal (e.g., SIGCONT).</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>verbose</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The verbosity level for logging. Higher values will produce more detailed logs.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>vosk_grammar_file</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The path to a file containing a JSON array of grammar rules for VOSK. If empty, no grammar will be used.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;&#39;</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A boolean indicating whether any text was handled during the recording process.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/pytater/vosk.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span>
+<span class="normal">449</span>
+<span class="normal">450</span>
+<span class="normal">451</span>
+<span class="normal">452</span>
+<span class="normal">453</span>
+<span class="normal">454</span>
+<span class="normal">455</span>
+<span class="normal">456</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">text_from_vosk_pipe</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">vosk_model_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">exit_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">process_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="n">handle_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">idle_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">progressive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">progressive_continuous</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">sample_rate</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">input_method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">pulse_device_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">suspend_on_start</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">vosk_grammar_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Runs the VOSK speech recognition process and handles the output according to the provided functions and parameters.</span>
+
+<span class="sd">    This function is the core of the speech recognition process, handling the recording of audio, processing it with VOSK, and managing the output based on the provided callbacks and settings.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        vosk_model_dir: The directory where the VOSK model is located.</span>
+<span class="sd">        exit_fn: A callback function that determines when to exit the recording loop. It should return -1 to cancel, 0 to continue, and 1 to finish.</span>
+<span class="sd">        process_fn: A callback function that processes the transcribed text before it is handled. It takes a string input and returns a string output.</span>
+<span class="sd">        handle_fn: A callback function that handles the processed text. It takes an integer representing the number of characters to delete from the previous output and a string representing the new text to output.</span>
+<span class="sd">        timeout: The time in seconds to wait for changes in the transcription before automatically exiting. A value of 0 means no timeout.</span>
+<span class="sd">        idle_time: The time in seconds to sleep between iterations of the recording loop to prevent excessive CPU usage. A value of 0 means no sleeping.</span>
+<span class="sd">        progressive: If True, the handle_fn will be called with partial results as they are transcribed. If False, handle_fn will only be called with the final transcribed text.</span>
+<span class="sd">        progressive_continuous: If True and progressive is True, the handle_fn will be called with the continuously updated transcription. If False and progressive is True, the handle_fn will be called with the final transcription of each segment.</span>
+<span class="sd">        sample_rate: The sample rate for audio recording.</span>
+<span class="sd">        input_method: The method to use for audio input. Supported values are &quot;PAREC&quot;, &quot;SOX&quot;, and &quot;PW-CAT&quot;.</span>
+<span class="sd">        pulse_device_name: The name of the PulseAudio device to use for recording (only applicable if input_method is &quot;PAREC&quot;).</span>
+<span class="sd">        suspend_on_start: If True, the recording process will start in a suspended state and will need to be resumed with a signal (e.g., SIGCONT).</span>
+<span class="sd">        verbose: The verbosity level for logging. Higher values will produce more detailed logs.</span>
+<span class="sd">        vosk_grammar_file: The path to a file containing a JSON array of grammar rules for VOSK. If empty, no grammar will be used.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A boolean indicating whether any text was handled during the recording process.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Delay some imports until recording has started to avoid minor delays.</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">vosk_model_dir</span><span class="p">):</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s2">&quot;Please download a model using `pytater download`.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># NOTE: typed as a string for Py3.6 compatibility.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">recording_proc_start</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;Tuple[subprocess.Popen[bytes], IO[bytes]]&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">recording_proc_with_non_blocking_stdout</span><span class="p">(</span><span class="n">input_method</span><span class="p">,</span> <span class="n">sample_rate</span><span class="p">,</span> <span class="n">pulse_device_name</span><span class="p">)</span>
+
+    <span class="n">has_ps</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">suspend_on_start</span><span class="p">:</span>
+        <span class="n">ps</span><span class="p">,</span> <span class="n">stdout</span> <span class="o">=</span> <span class="n">recording_proc_start</span><span class="p">()</span>
+        <span class="n">has_ps</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># `mypy` doesn&#39;t know about VOSK.</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">vosk</span>  <span class="c1"># type: ignore</span>
+
+    <span class="n">vosk</span><span class="o">.</span><span class="n">SetLogLevel</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">vosk_grammar_file</span><span class="p">:</span>
+        <span class="n">grammar_json</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">vosk_grammar_file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">grammar_json</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="c1"># Allow for loading the model to take some time:</span>
+    <span class="k">if</span> <span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Loading model...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">vosk</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">vosk_model_dir</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">grammar_json</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="n">rec</span> <span class="o">=</span> <span class="n">vosk</span><span class="o">.</span><span class="n">KaldiRecognizer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_rate</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rec</span> <span class="o">=</span> <span class="n">vosk</span><span class="o">.</span><span class="n">KaldiRecognizer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_rate</span><span class="p">,</span> <span class="n">grammar_json</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Model loaded.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 1mb</span>
+    <span class="n">block_size</span> <span class="o">=</span> <span class="mi">1_048_576</span>
+
+    <span class="n">use_timeout</span> <span class="o">=</span> <span class="n">timeout</span> <span class="o">!=</span> <span class="mf">0.0</span>
+    <span class="k">if</span> <span class="n">use_timeout</span><span class="p">:</span>
+        <span class="n">timeout_text_prev</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">timeout_time_prev</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="c1"># Collect the output used when time-out is enabled.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">progressive</span> <span class="ow">and</span> <span class="n">progressive_continuous</span><span class="p">):</span>
+        <span class="n">text_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Set true if handle has been called.</span>
+    <span class="n">handled_any</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">progressive</span><span class="p">:</span>
+        <span class="n">text_prev</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="c1"># Track this to prevent excessive load when the &quot;partial&quot; result doesn&#39;t change.</span>
+    <span class="n">json_text_partial_prev</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="c1"># -----------------------------</span>
+    <span class="c1"># Utilities for Text Processing</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_fn_suspended</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">handled_any</span>
+        <span class="k">nonlocal</span> <span class="n">text_prev</span>
+        <span class="k">nonlocal</span> <span class="n">json_text_partial_prev</span>
+
+        <span class="n">handled_any</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">text_prev</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">json_text_partial_prev</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">progressive</span> <span class="ow">and</span> <span class="n">progressive_continuous</span><span class="p">):</span>
+            <span class="n">text_list</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_fn_wrapper</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_partial_arg</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">handled_any</span>
+        <span class="k">nonlocal</span> <span class="n">text_prev</span>
+
+        <span class="c1"># Simple deferred text input, just accumulate values in a list (finish entering text on exit).</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">progressive</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is_partial_arg</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="n">text_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">handled_any</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Progressive support (type as you speak).</span>
+        <span class="k">if</span> <span class="n">progressive_continuous</span><span class="p">:</span>
+            <span class="n">text_curr</span> <span class="o">=</span> <span class="n">process_fn</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text_curr</span> <span class="o">=</span> <span class="n">process_fn</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text_list</span> <span class="o">+</span> <span class="p">[</span><span class="n">text</span><span class="p">]))</span>
+
+        <span class="k">if</span> <span class="n">text_curr</span> <span class="o">!=</span> <span class="n">text_prev</span><span class="p">:</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text_curr</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">text_prev</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text_curr</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">text_prev</span><span class="p">))):</span>
+                <span class="k">if</span> <span class="n">text_curr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">text_prev</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">match</span> <span class="o">=</span> <span class="n">i</span>
+                    <span class="k">break</span>
+
+            <span class="c1"># Emit text, deleting any previous incorrectly transcribed output</span>
+            <span class="n">handle_fn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text_prev</span><span class="p">)</span> <span class="o">-</span> <span class="n">match</span><span class="p">,</span> <span class="n">text_curr</span><span class="p">[</span><span class="n">match</span><span class="p">:])</span>
+
+            <span class="n">text_prev</span> <span class="o">=</span> <span class="n">text_curr</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_partial_arg</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">progressive_continuous</span><span class="p">:</span>
+                <span class="n">text_prev</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">text_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="n">handled_any</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># -----------------------------------------------</span>
+    <span class="c1"># Utilities for accessing results on `rec` (VOSK)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">rec_handle_fn_wrapper_from_final_result</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">json_text</span> <span class="o">=</span> <span class="n">rec</span><span class="o">.</span><span class="n">FinalResult</span><span class="p">()</span>
+
+        <span class="c1"># When `rec.FinalResult()` returns an empty string, typically immediately after a resume,</span>
+        <span class="c1"># it can cause the JSON decoder to fail. This patch simply ignores that case and continues</span>
+        <span class="c1"># by returning an empty string to the caller.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">json_text</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">json_text</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_text</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">json_data</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+            <span class="n">handle_fn_wrapper</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">json_text</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">rec_handle_fn_wrapper_from_partial_result</span><span class="p">(</span><span class="n">json_text_partial_prev</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="n">json_text</span> <span class="o">=</span> <span class="n">rec</span><span class="o">.</span><span class="n">PartialResult</span><span class="p">()</span>
+        <span class="c1"># Without this, there are *many* calls with the same partial text.</span>
+        <span class="k">if</span> <span class="n">json_text_partial_prev</span> <span class="o">!=</span> <span class="n">json_text</span><span class="p">:</span>
+            <span class="n">json_text_partial_prev</span> <span class="o">=</span> <span class="n">json_text</span>
+
+            <span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_text</span><span class="p">)</span>
+            <span class="c1"># In rare cases this can be unset (when resuming from being suspended).</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">json_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;partial&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+                <span class="n">handle_fn_wrapper</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">json_text</span><span class="p">,</span> <span class="n">json_text_partial_prev</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">suspend_on_start</span><span class="p">:</span>
+        <span class="c1"># Support setting up input simulation state.</span>
+        <span class="n">handle_fn</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">simulate_input_code_command</span><span class="p">,</span> <span class="s2">&quot;SETUP&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Use code to delay exiting, allowing reading the recording buffer to catch-up.</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># ---------------</span>
+    <span class="c1"># Signal Handling</span>
+
+    <span class="n">suspend</span> <span class="o">=</span> <span class="n">suspend_on_start</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">FrameType</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">do_suspend_pause</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">has_ps</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">stdout</span>
+        <span class="n">rec_handle_fn_wrapper_from_final_result</span><span class="p">()</span>
+
+        <span class="c1"># Don&#39;t include any of the current analysis when resuming.</span>
+        <span class="n">rec</span><span class="o">.</span><span class="n">Reset</span><span class="p">()</span>
+
+        <span class="c1"># Clear the buffer:</span>
+        <span class="n">handle_fn_suspended</span><span class="p">()</span>
+
+        <span class="k">nonlocal</span> <span class="n">verbose</span>
+        <span class="k">if</span> <span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Recording suspended.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Close the recording process.</span>
+        <span class="k">if</span> <span class="n">has_ps</span><span class="p">:</span>
+            <span class="c1"># Support setting up input simulation state.</span>
+            <span class="n">handle_fn</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">simulate_input_code_command</span><span class="p">,</span> <span class="s2">&quot;TEARDOWN&quot;</span><span class="p">)</span>
+
+            <span class="n">stdout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">ps</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">)</span>
+            <span class="k">del</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">ps</span>
+            <span class="n">has_ps</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># Warning: do not call do_suspend_resume() from a signal context because it</span>
+    <span class="c1"># can cause reentrant runtime errors and other related bugs.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">do_suspend_resume</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">has_ps</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">stdout</span>
+
+        <span class="c1"># Resume reading from the recording process.</span>
+        <span class="k">nonlocal</span> <span class="n">verbose</span>
+        <span class="k">if</span> <span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Recording.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">handle_fn</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">simulate_input_code_command</span><span class="p">,</span> <span class="s2">&quot;SETUP&quot;</span><span class="p">)</span>
+        <span class="n">ps</span><span class="p">,</span> <span class="n">stdout</span> <span class="o">=</span> <span class="n">recording_proc_start</span><span class="p">()</span>
+        <span class="n">has_ps</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_sig_suspend_from_usr1</span><span class="p">(</span><span class="n">_signum</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">_frame</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">FrameType</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">suspend</span>
+        <span class="k">if</span> <span class="n">suspend</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">suspend</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">do_suspend_pause</span><span class="p">()</span>
+        <span class="c1"># Use when Py3.6 compatibility is dropped.</span>
+        <span class="c1"># `signal.raise_signal(signal.SIGSTOP)`</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">(),</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGSTOP</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_sig_resume_from_cont</span><span class="p">(</span><span class="n">_signum</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">_frame</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">FrameType</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">suspend</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">suspend</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">suspend</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_sig_reload_from_hup</span><span class="p">(</span><span class="n">_signum</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">_frame</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">FrameType</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Reload.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">process_fn</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">signal</span>
+
+    <span class="c1"># Suspend resume from separate signals.</span>
+    <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGUSR1</span><span class="p">,</span> <span class="n">handle_sig_suspend_from_usr1</span><span class="p">)</span>
+
+    <span class="c1"># This allows you to stop via ctrl+z and resume with `fg` at a terminal.</span>
+    <span class="c1"># This intentionally re-uses the handle_sig_suspend_from_usr1 handler:</span>
+    <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGTSTP</span><span class="p">,</span> <span class="n">handle_sig_suspend_from_usr1</span><span class="p">)</span>
+
+    <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGCONT</span><span class="p">,</span> <span class="n">handle_sig_resume_from_cont</span><span class="p">)</span>
+
+    <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGHUP</span><span class="p">,</span> <span class="n">handle_sig_reload_from_hup</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">suspend</span><span class="p">:</span>
+        <span class="c1"># Use when Py3.6 compatibility is dropped.</span>
+        <span class="c1"># `signal.raise_signal(signal.SIGSTOP)`</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">(),</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGSTOP</span><span class="p">)</span>
+
+    <span class="c1"># ---------</span>
+    <span class="c1"># Main Loop</span>
+
+    <span class="k">if</span> <span class="n">idle_time</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">idle_time_prev</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="k">while</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># -1=cancel, 0=continue, 1=finish.</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">exit_fn</span><span class="p">(</span><span class="n">handled_any</span><span class="p">)</span>
+
+        <span class="c1"># Note that when suspend is enabled the entire process is suspended</span>
+        <span class="c1"># and this look should not run.</span>
+        <span class="c1"># This check is simply done to prevent any logic running before the process is actually suspended,</span>
+        <span class="c1"># although in practice it doesn&#39;t look to be a problem.</span>
+        <span class="k">if</span> <span class="n">suspend</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="n">idle_time</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="c1"># Subtract processing time from the previous loop.</span>
+            <span class="c1"># Skip idling in the event dictation can&#39;t keep up with the recording.</span>
+            <span class="n">idle_time_curr</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">idle_time_test</span> <span class="o">=</span> <span class="n">idle_time</span> <span class="o">-</span> <span class="p">(</span><span class="n">idle_time_curr</span> <span class="o">-</span> <span class="n">idle_time_prev</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">idle_time_test</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+                <span class="c1"># Prevents excessive processor load.</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">idle_time_test</span><span class="p">)</span>
+                <span class="n">idle_time_prev</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">idle_time_prev</span> <span class="o">=</span> <span class="n">idle_time_curr</span>
+
+        <span class="c1"># Mostly the data read is quite small (under 1k).</span>
+        <span class="c1"># Only the 1st entry in the loop reads a lot of data due to the time it takes to initialize the VOSK module.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">block_size</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">NameError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="c1"># Start recording if `stdout` is not yet open (NameError), or if it</span>
+            <span class="c1"># was closed via suspend (ValueError).  This can happen either due</span>
+            <span class="c1"># to a suspend/resume cycle (SIGUSR1/SIGTSTP-&gt;SIGCONT) or when</span>
+            <span class="c1"># --suspend-on-start was specified followed by a SIGCONT.</span>
+            <span class="n">do_suspend_resume</span><span class="p">()</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">ok</span> <span class="o">=</span> <span class="n">rec</span><span class="o">.</span><span class="n">AcceptWaveform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
+                <span class="n">json_text_partial_prev</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="n">json_text</span> <span class="o">=</span> <span class="n">rec_handle_fn_wrapper_from_final_result</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">json_text</span><span class="p">,</span> <span class="n">json_text_partial_prev</span> <span class="o">=</span> <span class="n">rec_handle_fn_wrapper_from_partial_result</span><span class="p">(</span><span class="n">json_text_partial_prev</span><span class="p">)</span>
+
+            <span class="c1"># Monitor the partial output.</span>
+            <span class="c1"># Finish if no changes are made for `timeout` seconds.</span>
+            <span class="k">if</span> <span class="n">use_timeout</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">json_text</span> <span class="o">!=</span> <span class="n">timeout_text_prev</span><span class="p">:</span>
+                    <span class="n">timeout_text_prev</span> <span class="o">=</span> <span class="n">json_text</span>
+                    <span class="n">timeout_time_prev</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+                <span class="k">elif</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">timeout_time_prev</span> <span class="o">&gt;</span> <span class="n">timeout</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">code</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># The time was exceeded, exit!</span>
+
+    <span class="c1"># Close the recording process.</span>
+    <span class="k">if</span> <span class="n">has_ps</span><span class="p">:</span>
+        <span class="c1"># stdout.close(), no need, this is exiting.</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">ps</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">ps</span><span class="p">,</span> <span class="n">stdout</span>
+        <span class="n">has_ps</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Support setting up input simulation state.</span>
+        <span class="n">handle_fn</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">simulate_input_code_command</span><span class="p">,</span> <span class="s2">&quot;TEARDOWN&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Text input canceled!</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># This writes many JSON blocks, use the last one.</span>
+    <span class="n">rec_handle_fn_wrapper_from_final_result</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">progressive</span><span class="p">:</span>
+        <span class="c1"># We never arrive here needing deletions</span>
+        <span class="n">handle_fn</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">process_fn</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text_list</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">handled_any</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.tracking", "toc.integrate", "content.code.annotate", "content.code.copy", "content.code.focus", "content.code.line_numbers"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
