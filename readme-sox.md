@@ -22,7 +22,7 @@ AUDIODEV='hw:2,0' sox -d --buffer 1000 -r 16000 -b 16 -e signed-integer -c 1 -t 
 sox test.wav -d
 ```
 
-## Running nerd dictation with `sox`
+## Running pytater with `sox`
 
 To run `pytater` with `sox`, use the `--input` argument.
 

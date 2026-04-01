@@ -62,7 +62,7 @@ disable = [
 ]
 
 [tool.pylint.master]
-ignore = ["build", "dist", "nerd_dictation.egg-info"]
+ignore = ["build", "dist", "pytater.egg-info"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

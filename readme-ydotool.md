@@ -54,7 +54,7 @@ Finally, `ydotool` works with a daemon that you leave running in the background,
 
 To avoid running it every time you start the computer, you can add it to your startup programs. The steps depend on your distribution, so we'll let you look this up.
 
-## Running nerd dictation with `ydotool`
+## Running pytater with `ydotool`
 
 To run `pytater` with `ydotool`, use the `--simulate-input-tool` argument.
 
