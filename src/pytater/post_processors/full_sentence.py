@@ -1,10 +1,23 @@
+"""This module provides a post-processor for capitalizing the first word of a sentence while leaving the rest of the words unchanged.
+
+For example, `["hello", "world"]` -> `["Hello", "world"]`. The `full_sentence` post-processor has a priority of 100, meaning it should run after most other post-processors. This is to ensure that other post-processors that may adjust word order do not cause words that aren't first to be capitalized.
+"""
+
 from typing import Any, Optional
 from pytater.post_processors import register_post_processor
 
 
 def full_sentence(words: list[str], options: Optional[dict[str, Any]] = None) -> list[str]:
-    """
-    Post-processor that capitalizes the first word of a sentence and leaves the rest of the words unchanged. For example, `["hello", "world"]` -> `["Hello", "world"]`.
+    """Post-processor that capitalizes the first word of a sentence and leaves the rest of the words unchanged.
+    
+    For example, `["hello", "world"]` -> `["Hello", "world"]`.
+
+    Args:
+        words: The list of words to process.
+        options: An optional dictionary of options for the post-processor. This post-processor does not use any options, but the parameter is included for consistency with the post-processor interface.
+
+    Returns:
+        A new list of words with the first word capitalized and the rest unchanged.
     """
     if options is None:
         options = {}

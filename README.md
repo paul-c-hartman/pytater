@@ -61,7 +61,7 @@ See `pytater begin --help` for details on how to access these options.
 
 ## Dependencies
 
-- Python 3.6.2 (or newer).
+- Python 3.7.0 (or newer).
 - An audio recording utility (`parec` by default).
 - An input simulation utility (`xdotool` by default). (This is not necessary if all you're doing is printing dictated words to the terminal.)
 

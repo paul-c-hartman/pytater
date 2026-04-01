@@ -1,0 +1,1 @@
+## ::: pytater.post_processors.full_sentence

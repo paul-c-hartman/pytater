@@ -1,3 +1,6 @@
+"""This module provides helpers for downloading and managing VOSK speech recognition models for use with the pytater application.
+"""
+
 import os
 import sys
 import shutil
@@ -17,8 +20,14 @@ DEFAULT_MODEL = "small"
 
 
 def download_progress(block_num: int, block_size: int, total_size: int) -> None:
-    """
-    Reports download progress to stderr. Only runs if pytater is running interactively.
+    """Report download progress to stderr.
+    
+    Only runs if pytater is running interactively.
+
+    Args:
+        block_num: The number of blocks downloaded so far.
+        block_size: The size of each block in bytes.
+        total_size: The total size of the file in bytes.
     """
     if hasattr(sys, 'ps1'):
         read_so_far = block_num * block_size
@@ -34,9 +43,13 @@ def download_progress(block_num: int, block_size: int, total_size: int) -> None:
 
 
 def download_and_extract_model(model_url: str, extract_to: str) -> None:
-    """
-    Downloads a model from the given URL and extracts it to the specified directory.
+    """Download a model from the given URL and extract it to the specified directory.
+    
     Assumes the URL points to a zip file.
+
+    Args:
+        model_url: The URL to download the model from.
+        extract_to: The directory to extract the model to.
     """
     with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
         print(f"Downloading model from {model_url}.\nThis may take a minute...")
@@ -55,8 +68,10 @@ def download_and_extract_model(model_url: str, extract_to: str) -> None:
 
 
 def set_model(directory: str) -> None:
-    """
-    Sets the model directory by creating a symlink from the path pytater checks to the actual location of the model.
+    """Set the model directory by creating a symlink from the path pytater checks to the actual location of the model.
+
+    Args:
+        directory: The directory where the model is located.
     """
     # We download models to $XDG_DATA_HOME/pytater/models/{model_name},
     # but the tool tries to load a model from $XDG_DATA_HOME/pytater/model/,
@@ -75,10 +90,12 @@ def set_model(directory: str) -> None:
 
 
 def main(model_name: str = DEFAULT_MODEL, force: bool = False, confirmation: bool = False) -> None:
-    """
-    Downloads a model by name or from a custom URL.
-    If the model already exists, it will not be downloaded again unless `force` is True.
-    If `force` is True and `confirmation` is False, the user will be prompted to confirm before overwriting an existing model.
+    """Download a model by name or from a custom URL.
+
+    Args:
+        model_name: The name of the model to download, or a custom URL to download from. If the name matches a key in the `MODELS` dictionary, the corresponding model will be downloaded from the predefined URL. Otherwise, the `model_name` will be treated as a custom URL to download from.
+        force: Whether to force the download of the model even if it already exists.
+        confirmation: Whether the user has confirmed that they want to overwrite an existing model. If `force` is True and `confirmation` is False, the user will be prompted to confirm before overwriting an existing model.
     """
     model_path = os.path.join(settings.dirs.user_data_path, "models")
     model = MODELS.get(model_name, model_name)

@@ -1,5 +1,7 @@
-#!/usr/bin/env python3
-# SPDX-License-Identifier: GPL-2.0-or-later
+"""This is the main module for the pytater application.
+
+It contains the main functions that are called when the user runs the application. This includes the main entry points for starting, ending, and canceling the speech recognition process, as well as handling the suspend and resume functionality.
+"""
 
 # All built in modules.
 import os
@@ -42,10 +44,35 @@ def main_begin(
     verbose: int = 0,
     vosk_grammar_file: str = "",
 ) -> None:
-    """
-    Initialize audio recording, then full text to speech conversion can take place.
+    """Initialize audio recording so that full text-to-speech conversion can take place.
 
-    This is terminated by the ``end`` or ``cancel`` actions.
+    This is terminated by the `end` or `cancel` actions.
+
+    Args:
+        vosk_model_dir: The directory containing the VOSK model to use for speech recognition.
+        path_to_cookie: The path to the cookie file used for managing the recording state. If empty, a default path will be used.
+        pulse_device_name: The name of the PulseAudio device to use for recording. If empty, the default device will be used.
+        sample_rate: The sample rate to use for recording audio.
+        input_method: The method to use for capturing audio input. Supported values are "PAREC", "SOX", and "PW-CAT".
+        progressive: Whether to enable progressive transcription, which outputs text as it is recognized rather than waiting for the end of the sentence.
+        progressive_continuous: Whether to enable continuous progressive transcription, which continues to output text as it is recognized even after the end of the sentence is reached.
+        full_sentence: Whether to treat the recognized text as a full sentence, which affects punctuation and capitalization.
+        numbers_as_digits: Whether to convert recognized numbers to digits (e.g., "twenty" to "20").
+        numbers_use_separator: Whether to use a separator (e.g., a comma) when converting recognized numbers to digits.
+        numbers_min_value: The minimum value for converting recognized numbers to digits. If None, there is no minimum.
+        numbers_no_suffix: Whether to avoid adding a suffix (e.g., "th") when converting recognized numbers to digits.
+        timeout: The maximum time in seconds to wait for speech input before timing out. If 0, there is no timeout.
+        idle_time: The time in seconds to wait for additional speech input after the end of a sentence is detected before finalizing the transcription. If 0, there is no idle time.
+        delay_exit: The time in seconds to delay the exit after the end of a sentence is detected. This can be used to allow for additional speech input to be included in the transcription. If 0, there is no delay.
+        punctuate_from_previous_timeout: The time in seconds to consider the previous transcription as part of the current sentence for punctuation purposes. This can be used to continue punctuation from the previous transcription if the user is speaking in short bursts. If 0, there is no continuation from the previous transcription.
+        output: The method to use for outputting the transcribed text. Supported values are "SIMULATE_INPUT" for using a specified input simulation tool.
+        simulate_input_tool: The tool to use for simulating input when `output` is set to "SIMULATE_INPUT".
+        suspend_on_start: Whether to suspend the recording process immediately after starting, allowing it to be resumed later.
+        verbose: The verbosity level for logging. Higher values result in more verbose output.
+        vosk_grammar_file: The path to a VOSK grammar file to use for constraining the speech recognition. If empty, no grammar will be used.
+
+    Raises:
+        RuntimeError: If an unknown input method or output method is specified, or if the specified input simulation tool is unknown. These are considered internal errors that should never happen under normal usage (i.e., when using the `pytater` command-line tool). You may run into these errors if you are using the Python API directly; if you are not, please report the bug on this project's issues page.
     """
 
     # Find language model in:
@@ -184,6 +211,11 @@ def main_end(
     *,
     path_to_cookie: str = "",
 ) -> None:
+    """End the recording process, finalizing any remaining tasks.
+    
+    Args:
+        path_to_cookie: The path to the cookie file used for managing the recording state. If empty, a default path will be used.
+    """
     if not path_to_cookie:
         path_to_cookie = os.path.join(tempfile.gettempdir(), settings.temp_cookie_name)
 
@@ -197,6 +229,11 @@ def main_cancel(
     *,
     path_to_cookie: str = "",
 ) -> None:
+    """Cancel the recording process, discarding any transcribed text.
+
+    Args:
+        path_to_cookie: The path to the cookie file used for managing the recording state. If empty, a default path will be used.
+    """
     if not path_to_cookie:
         path_to_cookie = os.path.join(tempfile.gettempdir(), settings.temp_cookie_name)
 
@@ -212,6 +249,13 @@ def main_suspend(
     suspend: bool,
     verbose: int,
 ) -> None:
+    """Suspend or resume the recording process.
+
+    Args:
+        path_to_cookie: The path to the cookie file used for managing the recording state. If empty, a default path will be used.
+        suspend: Whether to suspend (True) or resume (False) the recording process.
+        verbose: The verbosity level for logging. Higher values result in more verbose output.
+    """
     import signal
 
     if not path_to_cookie:

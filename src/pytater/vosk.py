@@ -1,3 +1,28 @@
+"""This module facilitates speech recognition using the VOSK library.
+
+It hooks into the VOSK speech recognition library to provide real-time transcription of audio input.
+
+Typical usage example:
+
+    from pytater.vosk import text_from_vosk_pipe
+    text_from_vosk_pipe(
+        vosk_model_dir="path/to/model",
+        exit_fn=your_exit_fn,
+        process_fn=your_process_fn,
+        handle_fn=your_handle_fn,
+        timeout=5.0,
+        idle_time=0.1,
+        progressive=True,
+        progressive_continuous=False,
+        sample_rate=44100,
+        input_method="PAREC",
+        pulse_device_name="",
+        suspend_on_start=False,
+        verbose=0,
+        vosk_grammar_file="",
+    )
+"""
+
 import os
 import subprocess
 import sys
@@ -85,12 +110,35 @@ def text_from_vosk_pipe(
     verbose: int = 0,
     vosk_grammar_file: str = "",
 ) -> bool:
+    """Runs the VOSK speech recognition process and handles the output according to the provided functions and parameters.
+    
+    This function is the core of the speech recognition process, handling the recording of audio, processing it with VOSK, and managing the output based on the provided callbacks and settings.
+
+    Args:
+        vosk_model_dir: The directory where the VOSK model is located.
+        exit_fn: A callback function that determines when to exit the recording loop. It should return -1 to cancel, 0 to continue, and 1 to finish.
+        process_fn: A callback function that processes the transcribed text before it is handled. It takes a string input and returns a string output.
+        handle_fn: A callback function that handles the processed text. It takes an integer representing the number of characters to delete from the previous output and a string representing the new text to output.
+        timeout: The time in seconds to wait for changes in the transcription before automatically exiting. A value of 0 means no timeout.
+        idle_time: The time in seconds to sleep between iterations of the recording loop to prevent excessive CPU usage. A value of 0 means no sleeping.
+        progressive: If True, the handle_fn will be called with partial results as they are transcribed. If False, handle_fn will only be called with the final transcribed text.
+        progressive_continuous: If True and progressive is True, the handle_fn will be called with the continuously updated transcription. If False and progressive is True, the handle_fn will be called with the final transcription of each segment.
+        sample_rate: The sample rate for audio recording.
+        input_method: The method to use for audio input. Supported values are "PAREC", "SOX", and "PW-CAT".
+        pulse_device_name: The name of the PulseAudio device to use for recording (only applicable if input_method is "PAREC").
+        suspend_on_start: If True, the recording process will start in a suspended state and will need to be resumed with a signal (e.g., SIGCONT).
+        verbose: The verbosity level for logging. Higher values will produce more detailed logs.
+        vosk_grammar_file: The path to a file containing a JSON array of grammar rules for VOSK. If empty, no grammar will be used.
+    
+    Returns:
+        A boolean indicating whether any text was handled during the recording process.
+    """
     # Delay some imports until recording has started to avoid minor delays.
     import json
 
     if not os.path.exists(vosk_model_dir):
         sys.stderr.write(
-            f"Please download the model from https://alphacephei.com/vosk/models and unpack it to {vosk_model_dir!r}.\n"
+            "Please download a model using `pytater download`.\n"
         )
         sys.exit(1)
 

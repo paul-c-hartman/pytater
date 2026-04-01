@@ -1,3 +1,8 @@
+"""This module allows pytater to simulate input by writing directly to stdout.
+
+This is the simplest method of transcription and can be used without any additional dependencies.
+"""
+
 import sys
 from pytater.config import settings
 

@@ -1,0 +1,27 @@
+site_name: Pytater
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - toc.integrate
+    - content.code.annotate
+    - content.code.copy
+    - content.code.focus
+    - content.code.line_numbers
+
+nav:
+  - index.md
+  - tutorials.md
+  - How-to guides: how-to-guides.md
+  - Reference: reference/index.md
+  - explanation.md
+
+plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google

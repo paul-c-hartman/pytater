@@ -1,3 +1,6 @@
+"""This module allows pytater to simulate input using the `wtype` command line utility.
+"""
+
 from pytater.utilities import run_command_or_exit_on_failure
 from pytater.config import settings
 

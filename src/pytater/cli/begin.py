@@ -1,11 +1,20 @@
+"""This module implements the `pytater begin` command, which allows users to start the dictation process.
+
+When the `begin` command is used, the process is started and audio recording begins. The recognized text is processed and typed in according to the specified options until the dictation process is ended using the `pytater end` command or suspended using the `pytater suspend` command. The `begin` command also accepts various options for configuring the behavior of the dictation process, such as specifying the VOSK model to use, setting timeouts, configuring post-processors, and more.
+"""
+
 import argparse
 from pytater.cli._common import argparse_cookie
 from pytater import main_begin
 
 
 def callback(args: argparse.Namespace) -> None:
-    """
-    Callback function for `pytater begin`. Calls the `main_begin` function with the appropriate arguments.
+    """Callback function for `pytater begin`.
+    
+    Calls the `main_begin` function with the appropriate arguments.
+
+    Args:
+        args: The parsed command-line arguments for the `begin` command.
     """
     main_begin(
         path_to_cookie=args.path_to_cookie,
@@ -33,8 +42,10 @@ def callback(args: argparse.Namespace) -> None:
 
 
 def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
-    """
-    Sets up arguments for `pytater begin` and registers the corresponding callback.
+    """Sets up arguments for `pytater begin` and registers the corresponding callback.
+
+    Args:
+        subparsers: The subparsers object from the main argument parser.
     """
     subparse = subparsers.add_parser(
         "begin",

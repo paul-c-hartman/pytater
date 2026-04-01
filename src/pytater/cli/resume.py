@@ -1,11 +1,20 @@
+"""This module implements the `pytater resume` command, which allows users to resume the dictation process after it has been suspended using the `pytater suspend` command.
+
+When the `resume` command is used, recording audio is resumed and the dictation process continues as normal. If pytater is not currently suspended, using the `resume` command will have no effect.
+"""
+
 import argparse
 from pytater.cli._common import argparse_cookie
 from pytater.main import main_suspend
 
 
 def callback(args: argparse.Namespace) -> None:
-    """
-    Callback function for `pytater resume`. Calls the `main_suspend` function with the appropriate arguments.
+    """Callback function for `pytater resume`.
+    
+    Calls the `main_suspend` function with the appropriate arguments.
+
+    Args:
+        args: The parsed command-line arguments for the `resume` command.
     """
     main_suspend(
         path_to_cookie=args.path_to_cookie,
@@ -26,8 +35,10 @@ def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> N
         ),
         formatter_class=argparse.RawTextHelpFormatter,
     )
-    """
-    Sets up arguments for `pytater resume` and registers the corresponding callback.
+    """Sets up arguments for `pytater resume` and registers the corresponding callback.
+
+    Args:
+        subparsers: The subparsers object from the main argument parser.
     """
     argparse_cookie(subparse)
 

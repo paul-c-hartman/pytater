@@ -1,3 +1,8 @@
+"""This module provides a unified interface for simulating input in the pytater application.
+
+It imports various methods of simulating input, such as using `xdotool`, `ydotool`, `dotool`, `wtype`, and writing directly to stdout. The `input_fns` dictionary maps the names of these methods to their corresponding functions, allowing the rest of the application to easily call the appropriate input simulation method based on user settings or other conditions.
+"""
+
 from typing import Callable
 
 from pytater.simulate_input.xdotool import simulate_typing_with_xdotool

@@ -1,18 +1,29 @@
+"""This module implements the `pytater download` command, which allows users to download VOSK models for use with the pytater application.
+
+A model is required for dictation to work, and available models can be viewed at https://alphacephei.com/vosk/models. The `download` command simply downloads and extracts a model into the default location used by pytater (using `platformdirs`).
+"""
+
 import argparse
 from pytater.cli._common import argparse_cookie
 from pytater.download_model import main as download_model, MODELS, DEFAULT_MODEL
 
 
 def callback(args: argparse.Namespace) -> None:
-    """
-    Callback function for `pytater download`. Calls the `download_model` function with the appropriate arguments.
+    """Callback function for `pytater download`.
+    
+    Calls the `download_model` function with the appropriate arguments.
+
+    Args:
+        args: The parsed command-line arguments for the `download` command.
     """
     download_model(args.model, args.force, args.confirmation)
 
 
 def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
-    """
-    Sets up arguments for `pytater download` and registers the corresponding callback.
+    """Sets up arguments for `pytater download` and registers the corresponding callback.
+
+    Args:
+        subparsers: The subparsers object from the main argument parser.
     """
     subparse = subparsers.add_parser(
         "download",
