@@ -1,7 +1,5 @@
 from pytater.post_processors import process_text
 
-import pytater.post_processors.full_sentence
-
 
 def test_full_sentence() -> None:
     mappings = {

@@ -1,8 +1,12 @@
-import pytest
 import argparse
-from pytater.cli.begin import main, callback
+import pytest
+from pytater.cli.begin import main
 
-func_stub = lambda args: args
+# pylint: disable=redefined-outer-name,unused-argument
+
+
+def func_stub(_):
+    pass
 
 
 @pytest.fixture
@@ -86,9 +90,9 @@ def test_options_for_begin(setup_parser):
 def test_default_options_for_begin(setup_parser):
     args = setup_parser.parse_args(["begin"])
     assert args.config is None
-    assert args.vosk_model_dir is ""
+    assert args.vosk_model_dir == ""
     assert args.vosk_grammar_file is None
-    assert args.pulse_device_name is ""
+    assert args.pulse_device_name == ""
     assert args.sample_rate == 44100
     assert args.defer_output is False
     assert args.progressive_continuous is False

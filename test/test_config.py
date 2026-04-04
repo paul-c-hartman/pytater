@@ -1,5 +1,5 @@
-from pytater.config import settings
 from platformdirs import PlatformDirs
+from pytater.config import settings
 
 
 def test_config():

@@ -1,6 +1,14 @@
-import pytest
-from pytater.utilities import run_command_or_exit_on_failure, touch, file_mtime_or_none, file_age_in_seconds, file_remove_if_exists, file_handle_make_non_blocking, execfile
 import os
+import pytest
+from pytater.utilities import (
+    run_command_or_exit_on_failure,
+    touch,
+    file_mtime_or_none,
+    file_age_in_seconds,
+    file_remove_if_exists,
+    file_handle_make_non_blocking,
+    execfile,
+)
 
 
 def test_run_command_or_exit_on_failure():
@@ -45,7 +53,7 @@ def test_file_mtime_or_none():
     assert file_mtime_or_none(test_file) is None
 
     # Create the file and check if the function returns its mtime.
-    with open(test_file, "w") as f:
+    with open(test_file, "w", encoding="utf-8") as f:
         f.write("Test content")
     mtime = file_mtime_or_none(test_file)
     assert isinstance(mtime, int)
@@ -62,7 +70,7 @@ def test_file_age_in_seconds():
         os.remove(test_file)
 
     # Create the file and check if the age is close to 0.
-    with open(test_file, "w") as f:
+    with open(test_file, "w", encoding="utf-8") as f:
         f.write("Test content")
     age = file_age_in_seconds(test_file)
     assert age >= 0
@@ -82,7 +90,7 @@ def test_file_remove_if_exists():
     assert not file_remove_if_exists(test_file)
 
     # Create the file and check if the function returns True when removing it.
-    with open(test_file, "w") as f:
+    with open(test_file, "w", encoding="utf-8") as f:
         f.write("Test content")
     assert file_remove_if_exists(test_file)
     assert not os.path.exists(test_file)
@@ -137,7 +145,7 @@ def test_execfile():
         os.remove(test_file)
 
     # Create a test Python file with some variables.
-    with open(test_file, "w") as f:
+    with open(test_file, "w", encoding="utf-8") as f:
         f.write("x = 42\ny = 'Hello, World!'")
 
     # Execute the file and check if the variables are defined in the returned module.

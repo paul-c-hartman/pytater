@@ -1,10 +1,12 @@
+from typing import Any, List, Dict
 import pytest
-from typing import Any
 from pytater.post_processors import post_processors, register_post_processor, process_text
 from pytater.post_processors.full_sentence import full_sentence
 
+# pylint: disable=redefined-outer-name,unused-argument
 
-def reverse_words(words: list[str], options: dict[str, Any]) -> list[str]:
+
+def reverse_words(words: List[str], _options: Dict[str, Any]) -> List[str]:
     return words[::-1]
 
 

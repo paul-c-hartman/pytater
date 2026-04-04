@@ -1,8 +1,12 @@
-import pytest
 import argparse
-from pytater.cli.end import main, callback
+import pytest
+from pytater.cli.end import main
 
-func_stub = lambda args: args
+# pylint: disable=redefined-outer-name,unused-argument
+
+
+def func_stub(_):
+    pass
 
 
 @pytest.fixture

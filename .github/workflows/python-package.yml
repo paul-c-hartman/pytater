@@ -38,10 +38,10 @@ jobs:
         pip install pylint black pytest
     - name: Lint with pylint
       run: |
-        pylint --recursive=y --output-format=text src/
+        pylint --recursive=y --output-format=text src/ test/
     - name: Format with black
       run: |
-        black --check src/
+        black --check src/ test/
     - name: Test with pytest
       run: |
         pytest
