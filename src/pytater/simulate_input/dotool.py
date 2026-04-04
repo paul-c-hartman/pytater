@@ -14,7 +14,7 @@ class DotoolProcess:
 
     def __init__(self, cmd: str = "dotool") -> None:
         self.cmd = cmd
-        self.proc: Optional[subprocess.Popen[str]] = None
+        self.proc: Optional["subprocess.Popen[str]"] = None
 
     def ensure_started(self) -> None:
         """Idempotent start, does nothing if already started."""
@@ -63,7 +63,7 @@ def simulate_typing_with_dotoolc(delete_prev_chars: int, text: str) -> None:
     simulate_typing_with_dotool(delete_prev_chars, text, process=dotoolc_process)
 
 
-def get_dotool_process(cmd: str = "dotool") -> Optional[subprocess.Popen[str]]:
+def get_dotool_process(cmd: str = "dotool") -> Optional["subprocess.Popen[str]"]:
     """Get the current dotool process if it exists.
 
     Returns:
