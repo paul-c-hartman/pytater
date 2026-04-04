@@ -1,5 +1,7 @@
 # Pytater
 
+[![Test](https://github.com/paul-c-hartman/pytater/actions/workflows/test.yml/badge.svg)](https://github.com/paul-c-hartman/pytater/actions/workflows/test.yml)
+
 *Offline Speech to Text for Linux.*
 
 > [!IMPORTANT]
