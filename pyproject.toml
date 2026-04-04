@@ -16,7 +16,6 @@ classifiers = [
     "Topic :: Multimedia :: Sound/Audio :: Conversion",
     "Topic :: Multimedia :: Sound/Audio :: Speech",
 ]
-license-files = ["LICENSE"]
 authors = [
     { name = "Campbell Barton", email = "ideasman42@gmail.com" },
     { name = "Paul Hartman", email = "contact@paulhartman.dev" },
