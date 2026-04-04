@@ -13,7 +13,7 @@ This is a utility that provides simple access speech to text for using in Linux
 without being tied to a desktop environment, using the excellent [VOSK-API](https://github.com/alphacep/vosk-api).
 
 ***Simple to set up***  
-   &nbsp;&nbsp;&nbsp;Pytater can be installed with a single command from PyPi.  
+   &nbsp;&nbsp;&nbsp;Pytater can be installed with a single command from PyPI.  
 ***Configurable***  
    &nbsp;&nbsp;&nbsp;Configure pytater using config files, environment variables, or the Python API (partially complete).  
 ***Zero Overhead***  
