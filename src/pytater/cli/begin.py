@@ -5,7 +5,7 @@ When the `begin` command is used, the process is started and audio recording beg
 
 import argparse
 from pytater.cli._common import argparse_cookie
-from pytater import main_begin
+from pytater.main import main_begin
 
 
 def callback(args: argparse.Namespace) -> None:

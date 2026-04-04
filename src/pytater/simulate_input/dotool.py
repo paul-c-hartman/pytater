@@ -6,17 +6,15 @@ import os
 from typing import Optional
 from pytater.config import settings
 
-# NOTE: typed as a string for Py3.6 compatibility.
-simulate_typing_with_dotool_proc: "Optional[subprocess.Popen[str]]" = None
-
 
 def simulate_typing_with_dotoolc(delete_prev_chars: int, text: str) -> None:
     simulate_typing_with_dotool(delete_prev_chars, text, cmd="dotoolc")
 
 
 def simulate_typing_with_dotool(delete_prev_chars: int, text: str, cmd: str = "dotool") -> None:
+    # NOTE: typed as a string for Py3.6 compatibility.
+    simulate_typing_with_dotool_proc: "Optional[subprocess.Popen[str]]" = None
     if delete_prev_chars == settings.simulate_input_code_command:
-        global simulate_typing_with_dotool_proc
         if text == "SETUP":
             # If this isn't true, something strange is going on.
             assert simulate_typing_with_dotool_proc is None
@@ -36,7 +34,7 @@ def simulate_typing_with_dotool(delete_prev_chars: int, text: str, cmd: str = "d
             # Not needed, just basic hygiene not to keep killed process reference.
             simulate_typing_with_dotool_proc = None
         else:
-            raise RuntimeError("Internal error, unknown command {!r}".format(text))
+            raise RuntimeError(f"Internal error, unknown command {text}")
         return
 
     assert simulate_typing_with_dotool_proc is not None

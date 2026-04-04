@@ -4,7 +4,7 @@ It's meant to be used solely as an example of how to implement a post-processor.
 """
 
 from typing import Any, Optional
-from pytater.post_processors import register_post_processor
+from pytater.post_processors._load import register_post_processor
 
 
 def capitalize_all_words(words: list[str], options: Optional[dict[str, Any]] = None) -> list[str]:

@@ -2,6 +2,7 @@ import io
 from contextlib import redirect_stderr
 import os
 import tempfile
+import sys
 from pytater.download_model import download_progress, download_and_extract_model, set_model
 from pytater.config import settings
 
@@ -15,18 +16,20 @@ def test_download_progress_noninteractive():
 
 def test_download_progress_interactive():
     f = io.StringIO()
-    f.isatty = lambda: True  # Just fake it
+    sys.ps1 = "fake"  # Just fake it
     with redirect_stderr(f):
         download_progress(1, 1024, 10240)
     assert f.getvalue() == "\rDownload Progress:  10.0% 1024 / 10240 bytes"
+    del sys.ps1
 
 
 def test_download_progress_unknown_size():
     f = io.StringIO()
-    f.isatty = lambda: True  # Just fake it
+    sys.ps1 = "fake"  # Just fake it
     with redirect_stderr(f):
         download_progress(1, 1024, -1)
     assert f.getvalue() == "Read 1024 bytes (Total size unknown)\n"
+    del sys.ps1
 
 
 def test_download_and_extract_model():

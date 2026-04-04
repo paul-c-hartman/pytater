@@ -59,6 +59,7 @@ disable = [
     'R1705',
     'W0212',
     'W0703',
+    'R1732'
 ]
 
 [tool.pylint.master]

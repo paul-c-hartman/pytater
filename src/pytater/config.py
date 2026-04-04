@@ -10,8 +10,8 @@ Typical usage example:
     print(settings.simulate_input_code_command)  # Access the simulate input code command
 """
 
-from platformdirs import PlatformDirs
 from typing import Any
+from platformdirs import PlatformDirs
 
 
 class Config:

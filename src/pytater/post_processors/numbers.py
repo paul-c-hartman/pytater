@@ -4,7 +4,10 @@ For example, "two hundred and fifty six" -> "256". The `numbers` post-processor 
 """
 
 from typing import Tuple, Dict, Set, List, Optional, Any
-from pytater.post_processors import register_post_processor
+from pytater.post_processors._load import register_post_processor
+
+
+# pylint: disable=consider-using-f-string
 
 
 def from_words_to_digits_setup_once() -> (
@@ -333,10 +336,9 @@ class from_words_to_digits:
                     # However these may not be equal if there are multiple disconnected series.
                     # e.g. `twenty twenty and twenty twenty one` -> `2020 and 2021`, see: #92.
                     assert i >= result_test[2]
-                    if result_test[2] == i:
-                        if result_prev:
-                            if len(result_prev[0]) == len(result_test[0]):
-                                return result_prev[2]
+                    if result_test[2] == i and result_prev is not None:
+                        if len(result_prev[0]) == len(result_test[0]): # pylint: disable=unsubscriptable-object
+                            return result_prev[2] # pylint: disable=unsubscriptable-object
                     i_span_beg = i
                 w_prev = w
             i += 1

@@ -4,7 +4,7 @@ For example, `["hello", "world"]` -> `["Hello", "world"]`. The `full_sentence` p
 """
 
 from typing import Any, Optional
-from pytater.post_processors import register_post_processor
+from pytater.post_processors._load import register_post_processor
 
 
 def full_sentence(words: list[str], options: Optional[dict[str, Any]] = None) -> list[str]:

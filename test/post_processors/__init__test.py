@@ -1,5 +1,5 @@
 import pytest
-from typing import Any, Sequence
+from typing import Any
 from pytater.post_processors import post_processors, register_post_processor, process_text
 from pytater.post_processors.full_sentence import full_sentence
 

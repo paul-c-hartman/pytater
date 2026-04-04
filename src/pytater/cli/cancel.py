@@ -22,17 +22,17 @@ def callback(args: argparse.Namespace) -> None:
 
 
 def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    """Sets up arguments for `pytater cancel` and registers the corresponding callback.
+
+    Args:
+        subparsers: The subparsers object from the main argument parser.
+    """
     subparse = subparsers.add_parser(
         "cancel",
         help="Cancel dictation.",
         description="This cancels dictation.",
         formatter_class=argparse.RawTextHelpFormatter,
     )
-    """Sets up arguments for `pytater cancel` and registers the corresponding callback.
-
-    Args:
-        subparsers: The subparsers object from the main argument parser.
-    """
     argparse_cookie(subparse)
 
     subparse.set_defaults(func=callback)

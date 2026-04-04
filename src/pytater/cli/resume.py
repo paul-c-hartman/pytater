@@ -24,6 +24,11 @@ def callback(args: argparse.Namespace) -> None:
 
 
 def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    """Sets up arguments for `pytater resume` and registers the corresponding callback.
+
+    Args:
+        subparsers: The subparsers object from the main argument parser.
+    """
     subparse = subparsers.add_parser(
         "resume",
         help="Resume the dictation process.",
@@ -35,11 +40,6 @@ def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> N
         ),
         formatter_class=argparse.RawTextHelpFormatter,
     )
-    """Sets up arguments for `pytater resume` and registers the corresponding callback.
-
-    Args:
-        subparsers: The subparsers object from the main argument parser.
-    """
     argparse_cookie(subparse)
 
     subparse.set_defaults(func=callback)
