@@ -27,8 +27,6 @@ def test_options_for_begin(setup_parser):
     args = setup_parser.parse_args(
         [
             "begin",
-            "--config",
-            "config.yaml",
             "--vosk-model-dir",
             "model",
             "--vosk-grammar-file",
@@ -63,7 +61,6 @@ def test_options_for_begin(setup_parser):
             "--verbose",
         ]
     )
-    assert args.config == "config.yaml"
     assert args.vosk_model_dir == "model"
     assert args.vosk_grammar_file == "grammar.txt"
     assert args.pulse_device_name == "default"
@@ -88,7 +85,6 @@ def test_options_for_begin(setup_parser):
 
 def test_default_options_for_begin(setup_parser):
     args = setup_parser.parse_args(["begin"])
-    assert args.config is None
     assert args.vosk_model_dir == ""
     assert args.vosk_grammar_file is None
     assert args.pulse_device_name == ""

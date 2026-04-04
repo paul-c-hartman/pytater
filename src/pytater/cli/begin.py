@@ -59,19 +59,6 @@ def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> N
     common_arguments(subparse)
 
     subparse.add_argument(
-        "--config",
-        default=None,
-        dest="config",
-        type=str,
-        metavar="FILE",
-        help=(
-            "Override the file used for the user configuration.\n"
-            "Use an empty string to prevent the users configuration being read."
-        ),
-        required=False,
-    )
-
-    subparse.add_argument(
         "--vosk-model-dir",
         default="",
         dest="vosk_model_dir",
