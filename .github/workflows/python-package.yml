@@ -25,9 +25,16 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
+      id: install-dependencies
+      continue-on-error: true
       run: |
         python -m pip install --upgrade pip
         pip install --group dev
+    - name: Install dependencies (old pip)
+      if: steps.install-dependencies.outcome == 'failure'
+      run: |
+        python -m pip install --upgrade pip
+        pip install ".[dev]"
     - name: Lint with pylint
       run: |
         pylint --recursive=y --output-format=text src/
