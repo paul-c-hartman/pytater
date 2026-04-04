@@ -34,7 +34,7 @@ jobs:
       if: steps.install-dependencies.outcome == 'failure'
       run: |
         python -m pip install --upgrade pip
-        pip install ".[dev]"
+        pip install -e ".[dev]"
     - name: Lint with pylint
       run: |
         pylint --recursive=y --output-format=text src/
