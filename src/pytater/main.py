@@ -198,7 +198,7 @@ def main_begin(
     )
 
     if not found_any:
-        logger.warning("No text found in the audio\n")
+        logger.debug("No text found in the audio\n")
         # Avoid continuing punctuation from where this recording (which recorded nothing) left off.
         touch(path_to_cookie)
         return
