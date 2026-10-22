@@ -23,7 +23,11 @@ authors = [
 maintainers = [
     { name = "Paul Hartman", email = "contact@paulhartman.dev" },
 ]
-dependencies = ["platformdirs>=2.4.0", "vosk>=0.3.45"]
+dependencies = [
+    "platformdirs>=2.4.0",
+    "vosk>=0.3.45",
+    "pyyaml>=6.0.0 ; python_version < '3.9'",
+]
 
 [project.scripts]
 pytater = 'pytater:main_cli'
