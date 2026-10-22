@@ -1,10 +1,10 @@
 import sys
-from typing import Any, Callable, Union
+from typing import Any, Callable, Union, Dict
 
 
 def subcommand_handler(
-    subcommand: str, handler: Callable[[dict[str, Any]], Union[None, int]]
-) -> Callable[[dict[str, Any]], None]:
+    subcommand: str, handler: Callable[[Dict[str, Any]], Union[None, int]]
+) -> Callable[[Dict[str, Any]], None]:
     """Handles the execution of a subcommand.
 
     Args:
@@ -13,7 +13,7 @@ def subcommand_handler(
         arguments: A dictionary of command-line arguments parsed by `docopt`.
     """
 
-    def execute_subcommand(arguments: dict[str, Any]) -> None:
+    def execute_subcommand(arguments: Dict[str, Any]) -> None:
         """Main entry point for the `pytater {subcommand}` sub-command.
 
         Args:

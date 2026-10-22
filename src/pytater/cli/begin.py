@@ -56,7 +56,7 @@ def begin_main(arguments):
         simulate_input_tool=arguments["--simulate-input-tool"],
         suspend_on_start=arguments["--suspend-on-start"],
         vosk_grammar_file=arguments["--vosk-grammar-file"],
-        # config_script_arguments=arguments["CONFIG_SCRIPT_ARGUMENTS"], # TODO
+        # config_script_arguments=arguments["CONFIG_SCRIPT_ARGUMENTS"],
     )
 
 

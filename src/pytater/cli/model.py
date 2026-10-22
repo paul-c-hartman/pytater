@@ -24,7 +24,7 @@ def model_main(arguments):
         model_name=arguments["--name"],
         force=arguments["--force"],
         confirmation=arguments["--yes"],
-        # language=arguments["--language"], # TODO: language selection
+        # language=arguments["--language"],
     )
 
 
