@@ -1,8 +1,13 @@
 """CLI entry point for Pytater."""
 
-from importlib.metadata import version
+import sys
 from pytater.cli import main as start_cli
 
+# Load package version
+if sys.version_info < (3, 8):
+    from importlib_metadata import version
+else:
+    from importlib.metadata import version
 __version__ = version("pytater")
 
 

@@ -2464,6 +2464,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "docopt" },
+    { name = "importlib-metadata", marker = "python_full_version < '3.8'" },
     { name = "platformdirs", version = "4.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.8'" },
     { name = "platformdirs", version = "4.3.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.8.*'" },
     { name = "platformdirs", version = "4.4.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
@@ -2507,6 +2508,7 @@ docs = [
 [package.metadata]
 requires-dist = [
     { name = "docopt", specifier = ">=0.6.2" },
+    { name = "importlib-metadata", marker = "python_full_version < '3.8'", specifier = ">=6.7.0" },
     { name = "platformdirs", specifier = ">=2.4.0" },
     { name = "pyyaml", marker = "python_full_version < '3.9'", specifier = ">=6.0.0" },
     { name = "vosk", specifier = ">=0.3.45" },
