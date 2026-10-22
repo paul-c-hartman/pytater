@@ -1,6 +1,6 @@
 """This module implements the main entry point for the `pytater` CLI, which provides a command-line interface for controlling the pytater application.
 
-The CLI supports several sub-commands, including `begin`, `end`, `cancel`, `suspend`, `resume`, and `download`. Each sub-command is implemented in its own module within the `pytater.cli` package, and they are all registered with the main argument parser in this module. The CLI allows users to start and stop the dictation process, suspend and resume it as needed, and download VOSK models for use with pytater. The main function in this module is `main`, which serves as the entry point for the CLI.
+The CLI supports several sub-commands, including `begin`, `end`, `cancel`, `suspend`, `resume`, and `model`. Each sub-command is implemented in its own module within the `pytater.cli` package, and they are all registered with the main argument parser in this module. The CLI allows users to start and stop the dictation process, suspend and resume it as needed, and download VOSK models for use with pytater. The main function in this module is `main`, which serves as the entry point for the CLI.
 """
 
 import argparse
@@ -10,7 +10,7 @@ from pytater.cli.end import main as argparse_create_end
 from pytater.cli.cancel import main as argparse_create_cancel
 from pytater.cli.suspend import main as argparse_create_suspend
 from pytater.cli.resume import main as argparse_create_resume
-from pytater.cli.download import main as argparse_create_download
+from pytater.cli.model import main as argparse_create_model
 
 description = """
 This is a utility that activates speech to text on Linux.
@@ -36,7 +36,7 @@ def argparse_create() -> argparse.ArgumentParser:
     argparse_create_suspend(subparsers)
     argparse_create_resume(subparsers)
 
-    argparse_create_download(subparsers)
+    argparse_create_model(subparsers)
 
     return parser
 

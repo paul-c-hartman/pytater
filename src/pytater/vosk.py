@@ -105,11 +105,18 @@ def recording_proc_start(
 
 def load_vosk_pipe(
     input_method: str, sample_rate: int, pulse_device_name: str, suspend_on_start: bool = False
-) -> Tuple[bool, Optional["subprocess.Popen[bytes]"], Optional[IO[bytes]], ModuleType]:
+) -> Tuple[
+    bool,
+    Optional["subprocess.Popen[bytes]"],
+    Optional[IO[bytes]],
+    ModuleType,
+    Callable[[Optional[str], Optional[str]], "vosk.Model"],
+]:
     """Loads the VOSK library and its dependencies.
 
     This function is used to delay the import of the VOSK library until it is actually needed, which can help reduce startup time for the application.
     """
+    from pytater.manage_models import load_model
     import vosk
 
     has_ps = False
@@ -119,7 +126,7 @@ def load_vosk_pipe(
         ps, stdout = recording_proc_start(input_method, sample_rate, pulse_device_name)
         has_ps = True
     vosk.SetLogLevel(-1)
-    return (has_ps, ps, stdout, vosk)
+    return (has_ps, ps, stdout, vosk, load_model)
 
 
 def text_from_vosk_pipe(
@@ -167,7 +174,9 @@ def text_from_vosk_pipe(
         logger.error("Please download a model using `pytater download`.")
         sys.exit(1)
 
-    has_ps, ps, stdout, vosk = load_vosk_pipe(input_method, sample_rate, pulse_device_name, suspend_on_start)
+    has_ps, ps, stdout, vosk, load_model = load_vosk_pipe(
+        input_method, sample_rate, pulse_device_name, suspend_on_start
+    )
 
     if not vosk_grammar_file:
         grammar_json = ""
@@ -177,7 +186,8 @@ def text_from_vosk_pipe(
 
     # Allow for loading the model to take some time:
     logger.info("Loading model...")
-    model = vosk.Model(vosk_model_dir)
+    # model = vosk.Model(vosk_model_dir)
+    model = load_model(settings.current_model)
 
     if grammar_json == "":
         rec = vosk.KaldiRecognizer(model, sample_rate)

@@ -1,6 +1,6 @@
 import argparse
 import pytest
-from pytater.cli.download import main
+from pytater.cli.model import main
 
 # pylint: disable=redefined-outer-name,unused-argument
 
@@ -14,24 +14,24 @@ def setup_parser():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers()
     main(subparsers)
-    subparsers.choices["download"].set_defaults(func=func_stub)
+    subparsers.choices["model"].set_defaults(func=func_stub)
     return parser
 
 
-def test_download_subcommand_exists(setup_parser):
-    args = setup_parser.parse_args(["download"])
+def test_model_subcommand_exists(setup_parser):
+    args = setup_parser.parse_args(["model"])
     assert hasattr(args, "func")
 
 
-def test_options_for_download(setup_parser):
-    args = setup_parser.parse_args(["download", "--model", "large", "--force", "-y"])
+def test_options_for_model(setup_parser):
+    args = setup_parser.parse_args(["model", "--name", "large", "--force", "-y"])
     assert args.model == "large"
     assert args.force is True
     assert args.confirmation is True
 
 
-def test_default_options_for_download(setup_parser):
-    args = setup_parser.parse_args(["download"])
+def test_default_options_for_model(setup_parser):
+    args = setup_parser.parse_args(["model"])
     assert args.model == "small"
     assert args.force is False
     assert args.confirmation is False
