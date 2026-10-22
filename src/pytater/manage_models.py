@@ -5,7 +5,7 @@ from functools import cache
 import io
 import vosk
 from pytater.config import settings
-from pytater.logging import logger
+from pytater.log import logger
 
 # On first loading the VOSK package, we want to ensure that it knows where we're keeping models
 # and isn't downloading them to some other location. This is a bit hacky, but it works.

@@ -1,4 +1,4 @@
-# import pytater.vosk
+# import pytater.vosk_api
 
 # `vosk.py` can't really be tested in an
 # environment that doesn't have model files or

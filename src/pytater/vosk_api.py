@@ -4,7 +4,7 @@ It hooks into the VOSK speech recognition library to provide real-time transcrip
 
 Typical usage example:
 
-    from pytater.vosk import text_from_vosk_pipe
+    from pytater.vosk_api import text_from_vosk_pipe
     text_from_vosk_pipe(
         vosk_model_dir="path/to/model",
         exit_fn=your_exit_fn,
@@ -32,7 +32,7 @@ from types import ModuleType
 from typing import IO, Tuple, Callable, List, Optional
 from pytater.utilities import file_handle_make_non_blocking
 from pytater.config import settings
-from pytater.logging import logger
+from pytater.log import logger
 
 
 def recording_proc_with_non_blocking_stdout(

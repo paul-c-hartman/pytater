@@ -6,7 +6,7 @@ This part of the project documentation is meant to be a reference for the techni
 - [pytater.config](config.md)
 - [pytater.download_model](download_model.md)
 - [pytater.utilities](utilities.md)
-- [pytater.vosk](vosk.md)
+- [pytater.vosk_api](vosk.md)
 - [pytater.cli](cli/index.md)
 - [pytater.post_processors](post_processors/index.md)
 - [pytater.simulate_input](simulate_input/index.md)

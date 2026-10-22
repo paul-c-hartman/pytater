@@ -1,61 +1,30 @@
-"""This module contains common code used by multiple subcommands in the `pytater` CLI."""
-
-import argparse
-
-
-def common_arguments(subparse: argparse.ArgumentParser) -> None:
-    """Add common arguments to the given subparser.
-
-    These arguments are used by multiple subcommands in the `pytater` CLI.
-
-    Args:
-        subparse: The argument parser to which the common arguments should be added.
-    """
-    argparse_verbosity(subparse)
-    argparse_cookie(subparse)
+import sys
+from typing import Any, Callable, Union
 
 
-def argparse_verbosity(subparse: argparse.ArgumentParser) -> None:
-    """Add the `--verbose` and `--debug` arguments to the given subparser.
-
-    These arguments are used to set the logging verbosity level for the subcommand.
+def subcommand_handler(
+    subcommand: str, handler: Callable[[dict[str, Any]], Union[None, int]]
+) -> Callable[[dict[str, Any]], None]:
+    """Handles the execution of a subcommand.
 
     Args:
-        subparse: The argument parser to which the `--verbose` and `--debug` arguments should be added.
+        subcommand: The name of the subcommand to execute.
+        handler: A callable that takes the subcommand name and arguments dictionary as parameters.
+        arguments: A dictionary of command-line arguments parsed by `docopt`.
     """
-    group = subparse.add_mutually_exclusive_group()
-    group.add_argument(
-        "--verbose",
-        dest="verbosity",
-        action="store_const",
-        const="verbose",
-        default="default",
-        help="Enable verbose logging output for this command.",
-    )
-    group.add_argument(
-        "--debug",
-        dest="verbosity",
-        action="store_const",
-        const="debug",
-        default="default",
-        help="Enable debug logging output for this command.",
-    )
 
+    def execute_subcommand(arguments: dict[str, Any]) -> None:
+        """Main entry point for the `pytater {subcommand}` sub-command.
 
-def argparse_cookie(subparse: argparse.ArgumentParser) -> None:
-    """Add the `--cookie` argument to the given subparser.
+        Args:
+            arguments: A dictionary of command-line arguments parsed by `docopt`.
+        """
 
-    This argument is used to specify the location of a temporary cookie file that is monitored to begin/end dictation.
+        # Set docstring properly for this handler function
+        execute_subcommand.__doc__ = (execute_subcommand.__doc__ or "").format(subcommand=subcommand)
 
-    Args:
-        subparse: The argument parser to which the `--cookie` argument should be added.
-    """
-    subparse.add_argument(
-        "--cookie",
-        dest="path_to_cookie",
-        default="",
-        type=str,
-        metavar="FILE_PATH",
-        help="Location for writing a temporary cookie (this file is monitored to begin/end dictation).",
-        required=False,
-    )
+        return_code = handler(arguments)
+        if return_code is not None:
+            sys.exit(return_code)
+
+    return execute_subcommand

@@ -9,7 +9,7 @@ import shutil
 import tempfile
 import urllib.request
 import zipfile
-from .config import settings
+from pytater.config import settings
 
 MODEL_URL = "https://alphacephei.com/kaldi/models/"
 MODELS = {

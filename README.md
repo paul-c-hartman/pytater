@@ -180,6 +180,7 @@ These commands are the ones run by the pre-commit hook.
 ## Roadmap
 
 - Complete and documented API (partially complete)
+- Config validation (maybe using `schema`?)
 - Proper extension support using [entry points](https://setuptools.pypa.io/en/latest/userguide/entry_point.html)
 - Reimplement certain features as post-processors
   - General solution to capitalize words (proper nouns for example)

@@ -10,7 +10,7 @@ import stat
 import time
 from types import ModuleType
 from typing import Optional, IO, List
-from pytater.logging import logger
+from pytater.log import logger
 
 # -----------------------------------------------------------------------------
 # General Utilities

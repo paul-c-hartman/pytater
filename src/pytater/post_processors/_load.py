@@ -5,7 +5,7 @@ Post-processors are functions that take a list of words and return a modified li
 
 import sys
 from typing import Any, Callable, Optional, List, Dict, Tuple
-from pytater.logging import logger
+from pytater.log import logger
 
 post_processors: List[Tuple[str, int, Callable[[List[str], Dict[str, Any]], List[str]]]] = []
 

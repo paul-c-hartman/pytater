@@ -1,112 +1,115 @@
-import argparse
-import pytest
-from pytater.cli.begin import main
+from unittest.mock import patch
 
-# pylint: disable=redefined-outer-name,unused-argument
+from docopt import docopt
 
-
-def func_stub(_):
-    pass
+from pytater.cli import begin
 
 
-@pytest.fixture
-def setup_parser():
-    parser = argparse.ArgumentParser(prog="pytater-test")
-    subparsers = parser.add_subparsers()
-    main(subparsers)
-    subparsers.choices["begin"].set_defaults(func=func_stub)
-    return parser
+def parse_begin(arguments):
+    return docopt(begin.__doc__, argv=["begin", *arguments])
 
 
-def test_begin_subcommand_exists(setup_parser):
-    args = setup_parser.parse_args(["begin"])
-    assert hasattr(args, "func")
+def test_begin_defaults():
+    arguments = parse_begin([])
+
+    assert arguments["--sample-rate"] == "44100"
+    assert arguments["--idle-time"] == "0.1"
+    assert arguments["--input"] == "PAREC"
+    assert arguments["--output"] == "SIMULATE_INPUT"
+    assert arguments["--defer-output"] is False
+    assert arguments["--continuous"] is False
+    assert arguments["CONFIG_SCRIPT_ARGUMENTS"] == []
 
 
-def test_options_for_begin(setup_parser):
-    args = setup_parser.parse_args(
+def test_begin_parses_options_and_passthrough_arguments():
+    arguments = parse_begin(
         [
-            "begin",
             "--vosk-model-dir",
             "model",
             "--vosk-grammar-file",
-            "grammar.txt",
+            "grammar.json",
             "--pulse-device-name",
             "default",
             "--sample-rate",
             "16000",
             "--defer-output",
-            "--continuous",
             "--timeout",
             "30",
             "--idle-time",
-            "0.1",
-            "--delay-exit",
-            "0.5",
-            "--suspend-on-start",
-            "--punctuate-from-previous-timeout",
-            "1",
-            "--full-sentence",
+            "0.75",
             "--numbers-as-digits",
             "--numbers-use-separator",
             "--numbers-min-value",
-            "0",
-            "--numbers-no-suffix",
+            "100",
             "--input",
             "SOX",
             "--output",
             "STDOUT",
             "--simulate-input-tool",
             "DOTOOLC",
-            "--verbose",
+            "--cookie",
+            "/tmp/pytater.cookie",
+            "--",
+            "config.py",
+            "--extension-option",
         ]
     )
-    assert args.vosk_model_dir == "model"
-    assert args.vosk_grammar_file == "grammar.txt"
-    assert args.pulse_device_name == "default"
-    assert args.sample_rate == 16000
-    assert args.defer_output is True
-    assert args.progressive_continuous is True
-    assert args.timeout == 30
-    assert args.idle_time == 0.1
-    assert args.delay_exit == 0.5
-    assert args.suspend_on_start is True
-    assert args.punctuate_from_previous_timeout == 1
-    assert args.full_sentence is True
-    assert args.numbers_as_digits is True
-    assert args.numbers_use_separator is True
-    assert args.numbers_min_value == 0
-    assert args.numbers_no_suffix is True
-    assert args.input_method == "SOX"
-    assert args.output == "STDOUT"
-    assert args.simulate_input_tool == "DOTOOLC"
-    assert args.verbosity == "verbose"
+
+    assert arguments["--vosk-model-dir"] == "model"
+    assert arguments["--vosk-grammar-file"] == "grammar.json"
+    assert arguments["--pulse-device-name"] == "default"
+    assert arguments["--sample-rate"] == "16000"
+    assert arguments["--defer-output"] is True
+    assert arguments["--timeout"] == "30"
+    assert arguments["--idle-time"] == "0.75"
+    assert arguments["--numbers-as-digits"] is True
+    assert arguments["--numbers-use-separator"] is True
+    assert arguments["--numbers-min-value"] == "100"
+    assert arguments["--input"] == "SOX"
+    assert arguments["--output"] == "STDOUT"
+    assert arguments["--simulate-input-tool"] == "DOTOOLC"
+    assert arguments["--cookie"] == "/tmp/pytater.cookie"
+    assert arguments["CONFIG_SCRIPT_ARGUMENTS"] == ["config.py", "--extension-option"]
 
 
-def test_default_options_for_begin(setup_parser):
-    args = setup_parser.parse_args(["begin"])
-    assert args.vosk_model_dir == ""
-    assert args.vosk_grammar_file is None
-    assert args.pulse_device_name == ""
-    assert args.sample_rate == 44100
-    assert args.defer_output is False
-    assert args.progressive_continuous is False
-    assert args.timeout == 0.0
-    assert args.idle_time == 0.1
-    assert args.delay_exit == 0.0
-    assert args.suspend_on_start is False
-    assert args.punctuate_from_previous_timeout == 0.0
-    assert args.full_sentence is False
-    assert args.numbers_as_digits is False
-    assert args.numbers_use_separator is False
-    assert args.numbers_min_value is None
-    assert args.numbers_no_suffix is False
-    assert args.input_method == "PAREC"
-    assert args.output == "SIMULATE_INPUT"
-    assert args.simulate_input_tool == "XDOTOOL"
-    assert args.verbosity == "default"
-    assert args.rest is False
+def test_begin_main_translates_arguments_to_main_begin():
+    arguments = parse_begin(
+        [
+            "--sample-rate",
+            "16000",
+            "--idle-time",
+            "0.75",
+            "--defer-output",
+            "--output",
+            "STDOUT",
+            "--cookie",
+            "/tmp/pytater.cookie",
+            "--",
+        ]
+    )
 
+    with patch("pytater.cli.begin.main_begin") as main_begin:
+        begin.begin_main(arguments)
 
-def test_callback(setup_parser):
-    pass  # Just calls main_begin which is tested elsewhere
+    main_begin.assert_called_once_with(
+        path_to_cookie="/tmp/pytater.cookie",
+        vosk_model_dir='""',
+        pulse_device_name='""',
+        sample_rate=16000,
+        input_method="PAREC",
+        progressive=False,
+        progressive_continuous=False,
+        full_sentence=False,
+        numbers_as_digits=False,
+        numbers_use_separator=False,
+        numbers_min_value=10,
+        numbers_no_suffix=False,
+        timeout=0.0,
+        idle_time=0.5,
+        delay_exit=0.0,
+        punctuate_from_previous_timeout=0.0,
+        output="STDOUT",
+        simulate_input_tool="XDOTOOL",
+        suspend_on_start=False,
+        vosk_grammar_file=None,
+    )

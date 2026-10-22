@@ -3,7 +3,7 @@
 This module provides logging functionality for the pytater package. It sets up a logger that can be used throughout the package to log messages at various levels (e.g., DEBUG, INFO, WARNING, ERROR, CRITICAL).
 
 Example usage:
-    from pytater.logging import logger, verbosity, setup_logging
+    from pytater.log import logger, verbosity, setup_logging
 
     logger.info("This is an informational message.") #=> (nothing printed)
     logger.debug("This is a debug message.") #=> (nothing printed)

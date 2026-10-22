@@ -1,1 +1,1 @@
-## ::: pytater.vosk
+## ::: pytater.vosk_api

@@ -1,44 +1,19 @@
-"""This module implements the `pytater suspend` command, which allows users to suspend the dictation process.
+"""
+Usage: pytater suspend [--cookie=<path>]
 
-This can be useful on slower systems or when large language models take longer to load. When the `suspend` command is used, recording audio is stopped and the process is paused to remove any CPU overhead.
+Suspends audio recording and dictation when pytater is running. Otherwise has no effect. Can be useful on slower systems where large models take longer to load.
+
+Options:
+  --cookie=<path>            Location for writing a temporary cookie [default: ""]
+
 """
 
-import argparse
-from pytater.cli._common import argparse_cookie
+from pytater.cli._common import subcommand_handler
 from pytater.main import main_suspend
 
 
-def callback(args: argparse.Namespace) -> None:
-    """Callback function for `pytater suspend`.
-
-    Calls the `main_suspend` function with the appropriate arguments.
-
-    Args:
-        args: The parsed command-line arguments for the `suspend` command.
-    """
-    main_suspend(
-        path_to_cookie=args.path_to_cookie,
-        suspend=True,
-    )
+def suspend_main(arguments):
+    main_suspend(path_to_cookie=arguments["--cookie"], suspend=True)
 
 
-def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
-    """Sets up arguments for `pytater suspend` and registers the corresponding callback.
-
-    Args:
-        subparsers: The subparsers object from the main argument parser.
-    """
-    subparse = subparsers.add_parser(
-        "suspend",
-        help="Suspend the dictation process.",
-        description=(
-            "Suspend recording audio & the dictation process.\n"
-            "\n"
-            "This is useful on slower systems or when large language models take longer to load.\n"
-            "Recording audio is stopped and the process is paused to remove any CPU overhead."
-        ),
-        formatter_class=argparse.RawTextHelpFormatter,
-    )
-    argparse_cookie(subparse)
-
-    subparse.set_defaults(func=callback)
+main = subcommand_handler("suspend", suspend_main)

@@ -1,35 +1,17 @@
-import argparse
-import pytest
-from pytater.cli.resume import main
+from unittest.mock import patch
 
-# pylint: disable=redefined-outer-name,unused-argument
+from docopt import docopt
 
-
-def func_stub(_):
-    pass
+from pytater.cli import resume
 
 
-@pytest.fixture
-def setup_parser():
-    parser = argparse.ArgumentParser()
-    subparsers = parser.add_subparsers()
-    main(subparsers)
-    subparsers.choices["resume"].set_defaults(func=func_stub)
-    return parser
+def test_resume_main_forwards_cookie_and_resume_action():
+    arguments = docopt(resume.__doc__, argv=["resume", "--cookie=/tmp/pytater.cookie"])
 
+    with patch("pytater.cli.resume.main_suspend") as main_suspend:
+        resume.resume_main(arguments)
 
-def test_resume_subcommand_exists(setup_parser):
-    args = setup_parser.parse_args(["resume"])
-    assert hasattr(args, "func")
-
-
-def test_options_for_resume(setup_parser):
-    pass  # No options to test for resume command.
-
-
-def test_default_options_for_resume(setup_parser):
-    pass  # No options to test for resume command.
-
-
-def test_callback(setup_parser):
-    pass  # Just calls main_suspend which is tested elsewhere
+    main_suspend.assert_called_once_with(
+        path_to_cookie="/tmp/pytater.cookie",
+        suspend=False,
+    )

@@ -1,41 +1,37 @@
-import argparse
-import pytest
-from pytater.cli.model import main
+from unittest.mock import patch
 
-# pylint: disable=redefined-outer-name,unused-argument
+from docopt import docopt
 
-
-def func_stub(_):
-    pass
+from pytater.cli import model
 
 
-@pytest.fixture
-def setup_parser():
-    parser = argparse.ArgumentParser()
-    subparsers = parser.add_subparsers()
-    main(subparsers)
-    subparsers.choices["model"].set_defaults(func=func_stub)
-    return parser
+def parse_model(arguments):
+    return docopt(model.__doc__, argv=["model", *arguments])
 
 
-def test_model_subcommand_exists(setup_parser):
-    args = setup_parser.parse_args(["model"])
-    assert hasattr(args, "func")
+def test_model_defaults():
+    arguments = parse_model([])
+
+    assert arguments["--name"] == "small"
+    assert arguments["--force"] is False
+    assert arguments["--yes"] is False
+    assert arguments["--list"] is False
 
 
-def test_options_for_model(setup_parser):
-    args = setup_parser.parse_args(["model", "--name", "large", "--force", "-y"])
-    assert args.model == "large"
-    assert args.force is True
-    assert args.confirmation is True
+def test_model_parses_download_options():
+    arguments = parse_model(["--name", "large", "--force", "--yes"])
+
+    assert arguments["--name"] == "large"
+    assert arguments["--force"] is True
+    assert arguments["--yes"] is True
 
 
-def test_default_options_for_model(setup_parser):
-    args = setup_parser.parse_args(["model"])
-    assert args.model == "small"
-    assert args.force is False
-    assert args.confirmation is False
+def test_model_main_translates_arguments_to_downloader():
+    with patch("pytater.cli.model.download_model") as download_model:
+        model.model_main(parse_model(["--name", "large", "--force", "--yes"]))
 
-
-def test_callback(setup_parser):
-    pass  # Just calls main_download which is tested elsewhere
+    download_model.assert_called_once_with(
+        model_name="large",
+        force=True,
+        confirmation=True,
+    )

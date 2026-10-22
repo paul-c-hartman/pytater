@@ -15,9 +15,9 @@ from typing import Optional
 from pytater.config import settings
 from pytater.utilities import touch, file_mtime_or_none, file_age_in_seconds, file_remove_if_exists
 from pytater.post_processors import process_text
-from pytater.vosk import text_from_vosk_pipe
+from pytater.vosk_api import text_from_vosk_pipe
 from pytater.simulate_input import input_fns
-from pytater.logging import logger
+from pytater.log import logger
 
 
 def main_begin(

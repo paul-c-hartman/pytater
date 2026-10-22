@@ -1,65 +1,67 @@
-"""This module implements the main entry point for the `pytater` CLI, which provides a command-line interface for controlling the pytater application.
+"""
+Pytater.
 
-The CLI supports several sub-commands, including `begin`, `end`, `cancel`, `suspend`, `resume`, and `model`. Each sub-command is implemented in its own module within the `pytater.cli` package, and they are all registered with the main argument parser in this module. The CLI allows users to start and stop the dictation process, suspend and resume it as needed, and download VOSK models for use with pytater. The main function in this module is `main`, which serves as the entry point for the CLI.
+Usage: pytater [--help | --version] [--cookie=<path>] [--log-level=<level>] <command> [<args>...]
+
+Options:
+  -h, --help                 Show this screen.
+  -v, --version              Show version.
+  --cookie=<path>            Location for writing a temporary cookie (this file is monitored to begin/end dictation) [default: ""]
+  --log-level=<level>        Set the logging level. Can be one of: default, verbose, debug [default: default]
+
+Commands:
+  begin                      Start the Pytater agent and begin listening for voice commands.
+  end                        End dictation. Types in the text recognized so far and terminates the dictation process.
+  cancel                     Cancel dictation. Discards the text recognized so far and terminates the dictation process.
+  suspend                    Suspend the Pytater agent.
+  resume                     Resume the Pytater agent.
+  model                      Manage Pytater models.
+  help <command>             Show help for a specific command.
+
+For more information, visit the Pytater documentation: https://blog.paulhartman.dev/pytater/
+
 """
 
-import argparse
-from typing import List, Optional
-from pytater.cli.begin import main as argparse_create_begin
-from pytater.cli.end import main as argparse_create_end
-from pytater.cli.cancel import main as argparse_create_cancel
-from pytater.cli.suspend import main as argparse_create_suspend
-from pytater.cli.resume import main as argparse_create_resume
-from pytater.cli.model import main as argparse_create_model
-
-description = """
-This is a utility that activates speech to text on Linux.
-While it could use any system currently it uses the VOSK-API.
-"""
+import importlib
+import sys
+import signal
+from docopt import docopt
+from pytater.log import logger, set_verbosity as set_log_verbosity
 
 
-def argparse_create() -> argparse.ArgumentParser:
-    """Creates the main argument parser for the `pytater` CLI, including subparsers for each command.
-
-    Returns:
-        An `argparse.ArgumentParser` object configured with the appropriate subparsers and arguments for the `pytater` CLI.
-    """
-    parser = argparse.ArgumentParser(description=description, formatter_class=argparse.RawTextHelpFormatter)
-
-    subparsers = parser.add_subparsers()
-
-    argparse_create_begin(subparsers)
-
-    argparse_create_end(subparsers)
-    argparse_create_cancel(subparsers)
-
-    argparse_create_suspend(subparsers)
-    argparse_create_resume(subparsers)
-
-    argparse_create_model(subparsers)
-
-    return parser
-
-
-def main(argv: Optional[List[str]] = None) -> None:
+def main(version, argv=sys.argv[1:]):
     """Main entry point for the `pytater` CLI.
 
-    Parses command-line arguments and dispatches to the appropriate sub-command callback.
-
     Args:
-        argv: A list of command-line arguments to parse. If `None`, the arguments will be taken from `sys.argv`.
+        version: The version string to display when the `--version` option is used.
+        argv: The list of command-line arguments to parse. Default: `sys.argv[1:]`
     """
-    parser = argparse_create()
-    args = parser.parse_args(argv)
-    # Call sub-parser callback.
-    if not hasattr(args, "func"):
-        parser.print_help()
-        return
+    # Allow docopt to handle -h/--help and -v/--version
+    args = docopt(__doc__, options_first=True, version=version, help=True, argv=argv)
 
-    # Check for common arguments
-    if hasattr(args, "verbosity"):
-        from pytater.logging import set_verbosity
+    set_log_verbosity(args["--log-level"])
 
-        set_verbosity(args.verbosity)
+    # Dispatch to the appropriate sub-command
+    command = args["<command>"] or "help"
+    command_args = args["<args>"]
+    if args["--cookie"] not in (None, "", '""'):
+        command_args.extend(["--cookie", args["--cookie"]])
+    else:
+        command_args.extend(["--cookie", ""])
+    try:
+        module = importlib.import_module(f"pytater.cli.{command}")
+        module.main(docopt(module.__doc__, argv=[command, *command_args]))
+    except ModuleNotFoundError:
+        logger.error("Unknown command: %s", command)
+        sys.exit(1)
 
-    args.func(args)
+
+def graceful_exit(signum, _frame):
+    """Handle graceful exit on SIGINT or SIGTERM."""
+    logger.info("Received signal %s. Exiting gracefully...", signum)
+    sys.exit(128 + signum)
+
+
+# Register the signal handlers
+signal.signal(signal.SIGINT, graceful_exit)
+signal.signal(signal.SIGTERM, graceful_exit)

@@ -1,40 +1,19 @@
-"""This module implements the `pytater end` command, which allows users to end the dictation process.
+"""
+Usage: pytater end [--cookie=<path>]
 
-When the `end` command is used, the text that has been recognized so far is typed in, and the dictation process is terminated.
+Terminates the dictation process, processing text that has been recognized so far.
+
+Options:
+  --cookie=<path>            Location for writing a temporary cookie (this file is monitored to begin/end dictation) [default: ""]
+
 """
 
-import argparse
-from pytater.cli._common import argparse_cookie
+from pytater.cli._common import subcommand_handler
 from pytater.main import main_end
 
 
-def callback(args: argparse.Namespace) -> None:
-    """Callback function for `pytater end`.
-
-    Calls the `main_end` function with the appropriate arguments.
-
-    Args:
-        args: The parsed command-line arguments for the `end` command.
-    """
-    main_end(
-        path_to_cookie=args.path_to_cookie,
-    )
+def end_main(arguments):
+    main_end(path_to_cookie=arguments["--cookie"])
 
 
-def main(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
-    """Sets up arguments for `pytater end` and registers the corresponding callback.
-
-    Args:
-        subparsers: The subparsers object from the main argument parser.
-    """
-    subparse = subparsers.add_parser(
-        "end",
-        help="End dictation.",
-        description="""\
-This ends dictation, causing the text to be typed in.
-    """,
-        formatter_class=argparse.RawTextHelpFormatter,
-    )
-    argparse_cookie(subparse)
-
-    subparse.set_defaults(func=callback)
+main = subcommand_handler("end", end_main)
